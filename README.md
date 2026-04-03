@@ -34,3 +34,18 @@ FloodPulse is an offline-first, multimodal resilience assistant. It uses the pho
 - Offline Parity: 100% of core safety features must work in Airplane Mode.
 - Validation: 90% alignment between AI-predicted flood zones and UNOSAT post-disaster maps.
 
+
+---
+
+## 🧪 Phase 1: Technical Feasibility (Mbagathi Basin)
+To validate the **FloodPulse** core reasoning, we conducted a zero-shot analysis using **Gemma 4 (31B)** on high-resolution satellite imagery of the Mbagathi River corridor.
+
+### **Key Findings:**
+* **River Path:** Successfully identified the riparian corridor despite urban canopy cover.
+* **Critical Nodes:** Pinpointed three high-risk intersections:
+    1. **Lang'ata Road/ICU Crossing:** Identified as a primary arterial bottleneck.
+    2. **South B/C Border:** Identified as a "low-water" neighborhood split-point.
+    3. **Lower Basin Sumps:** Corrected identified as high-risk vehicle entrapment zones.
+* **Safe Ridge Logic:** The model autonomously identified the **South B Plateau** as a primary evacuation zone based on spectral terrain analysis (elevation vs. drainage).
+
+> **Status:** ✅ Feasibility Confirmed. The model demonstrates the required spatial intuition for urban flood navigation.
