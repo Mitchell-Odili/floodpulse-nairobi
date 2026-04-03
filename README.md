@@ -32,5 +32,5 @@ FloodPulse is an offline-first, multimodal resilience assistant. It uses the pho
 
 - Inference Speed: < 2 seconds for local image-to-risk analysis.
 - Offline Parity: 100% of core safety features must work in Airplane Mode.
-•	Validation: 90% alignment between AI-predicted flood zones and UNOSAT post-disaster maps.
+- Validation: 90% alignment between AI-predicted flood zones and UNOSAT post-disaster maps.
 
