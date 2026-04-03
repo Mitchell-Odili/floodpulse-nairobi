@@ -49,3 +49,18 @@ To validate the **FloodPulse** core reasoning, we conducted a zero-shot analysis
 * **Safe Ridge Logic:** The model autonomously identified the **South B Plateau** as a primary evacuation zone based on spectral terrain analysis (elevation vs. drainage).
 
 > **Status:** ✅ Feasibility Confirmed. The model demonstrates the required spatial intuition for urban flood navigation.
+
+---
+
+## 🛰️ Technical Deep Dive: The "Hidden River" Problem
+
+Standard navigation apps often fail in Nairobi because the Mbagathi River is obscured by urban canopy and informal settlements. **FloodPulse** solves this through a "Multi-Sensor Fusion" approach:
+
+### **1. Multimodal Spatial Reasoning**
+We leverage **Gemma 4** to analyze soil moisture levels (spectral darks) and vegetation density. The AI "sees" the river's true path even when it's missing from official map layers.
+
+### **2. NASA SRTM Integration**
+We cross-reference AI visual findings with **NASA Shuttle Radar Topography Mission (SRTM)** data. This ensures that every "Safe Ridge" suggested by the app is mathematically validated for elevation—not just a visual guess.
+
+### **3. SAR (Synthetic Aperture Radar) Capability**
+Optical satellites can't see through Nairobi's storm clouds. Our roadmap includes integrating **Sentinel-1 SAR** data, which uses radar to detect standing water through cloud cover, providing a "Pulse" of the flood in real-time.
