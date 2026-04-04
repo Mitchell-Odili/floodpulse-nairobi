@@ -10,6 +10,7 @@ __pycache__/
 venv/
 .venv/
 env/
+requirements.txt
 
 # VS Code settings (Optional, keeps your personal layout out of the repo)
 # .vscode/

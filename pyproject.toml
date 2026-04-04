@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "floodpulse-nairobi"
+version = "0.1.0"
+description = "Flood resilience engine for Nairobi"
+authors = ["Mitchell-Odili <mitchellodili@gmail.com>"]
+readme = "README.md"
+packages = [{include = "floodpulse_nairobi"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
