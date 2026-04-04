@@ -32,7 +32,7 @@ The primary river path is the **dark, winding green-brown corridor** that cuts d
 ### 2. Critical Road Intersections (30m Breach Scenario)
 A 30-meter breach beyond the current banks would move the water from the riparian zone directly into the urban asphalt. Based on the terrain and road layout, the following three intersections are the most critical failure points:
 
-*   **Intersection A: The Lang'ata Road / ICC Crossing (Top-Center):** Where the main road passes near the International Christian University. The river narrows here, but the approach roads are low-lying. A breach would turn this into a bottleneck, cutting off the primary artery connecting the city center to the southern suburbs.
+*   **Intersection A: The Lang'ata Road / ICC Crossing (Top-Center):** Where the main road passes near the International Christian Centre. The river narrows here, but the approach roads are low-lying. A breach would turn this into a bottleneck, cutting off the primary artery connecting the city center to the southern suburbs.
 *   **Intersection B: The South B / South C Border Access (Mid-Right):** There are several smaller arterial roads that cross the river valley between South B and South C. These are "low-water" points. A 30m breach would submerge these bridges/culverts, effectively splitting these two neighborhoods and preventing cross-district evacuation.
 *   **Intersection C: The Lower Basin Access Roads (Bottom-Center):** In the area where the river begins to widen toward the bottom of the frame, the surrounding land is flatter. The intersections of the local access roads here would become "sumps" (collection points), trapping vehicles in mud and deep water.
 
