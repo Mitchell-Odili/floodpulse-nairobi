@@ -1,0 +1,19 @@
+# Python clutter
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Virtual Environments (If you create them later)
+venv/
+.venv/
+env/
+
+# VS Code settings (Optional, keeps your personal layout out of the repo)
+# .vscode/
+
+# Sensitive Data (Safety first!)
+.env
+*.json_secret
