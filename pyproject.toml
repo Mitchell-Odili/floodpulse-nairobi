@@ -1,4 +1,4 @@
-[tool.poetry]
+po[tool.poetry]
 name = "floodpulse-nairobi"
 version = "0.1.0"
 description = "Flood resilience engine for Nairobi"
