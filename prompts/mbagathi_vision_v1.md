@@ -27,12 +27,12 @@ Use your internal reasoning to assess terrain color (indicating elevation/slope)
 Based on the provided satellite image of the Nairobi area (specifically focusing on the Mbagathi River basin and the South B/South C/Lang'ata corridors), here is the technical analysis for your **FloodPulse** app.
 
 ### 1. Primary River Path Identification
-The primary river path is the **dark, winding green-brown corridor** that cuts diagonally through the center of the image. It enters from the top-left/center (near the ICU/Lang'ata Road area) and snakes downward toward the bottom center. This is the **Mbagathi River**. The dark coloration indicates dense riparian vegetation and a lower elevation (the valley floor).
+The primary river path is the **dark, winding green-brown corridor** that cuts diagonally through the center of the image. It enters from the top-left/center (near the ICC/Lang'ata Road area) and snakes downward toward the bottom center. This is the **Mbagathi River**. The dark coloration indicates dense riparian vegetation and a lower elevation (the valley floor).
 
 ### 2. Critical Road Intersections (30m Breach Scenario)
 A 30-meter breach beyond the current banks would move the water from the riparian zone directly into the urban asphalt. Based on the terrain and road layout, the following three intersections are the most critical failure points:
 
-*   **Intersection A: The Lang'ata Road / ICU Crossing (Top-Center):** Where the main road passes near the International Christian University. The river narrows here, but the approach roads are low-lying. A breach would turn this into a bottleneck, cutting off the primary artery connecting the city center to the southern suburbs.
+*   **Intersection A: The Lang'ata Road / ICC Crossing (Top-Center):** Where the main road passes near the International Christian University. The river narrows here, but the approach roads are low-lying. A breach would turn this into a bottleneck, cutting off the primary artery connecting the city center to the southern suburbs.
 *   **Intersection B: The South B / South C Border Access (Mid-Right):** There are several smaller arterial roads that cross the river valley between South B and South C. These are "low-water" points. A 30m breach would submerge these bridges/culverts, effectively splitting these two neighborhoods and preventing cross-district evacuation.
 *   **Intersection C: The Lower Basin Access Roads (Bottom-Center):** In the area where the river begins to widen toward the bottom of the frame, the surrounding land is flatter. The intersections of the local access roads here would become "sumps" (collection points), trapping vehicles in mud and deep water.
 
