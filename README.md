@@ -16,7 +16,7 @@ During the March 2026 rains in Nairobi, flash floods turned arterial roads (like
 
 FloodPulse is an offline-first, multimodal resilience assistant. It uses the phone's native hardware to "see" and "reason" about flood risks without needing a cloud connection.
 - Vision: To provide every smartphone user in the Global South with a "Digital Guardian" that works when the world goes dark.
-- Pilot: Validating on the Mbagathi River basin due to its high-risk "bowl" topography and accessible ground truth.
+- Simulated Validation: We utilize a Modular Agentic Simulation to model the Mbagathi River basin, allowing us to validate "Trinity" persona interactions and multi-agent consensus protocols in high-risk scenarios.
   
 **3. Key User Journeys**
 
@@ -25,7 +25,7 @@ FloodPulse is an offline-first, multimodal resilience assistant. It uses the pho
 - The Urban Planner/Strategist: "I need to aggregated 'Ground Truth' data from offline devices to understand where the Mbagathi River actually breached, so we can update the city's drainage priority list."
 
 ## 🎮 4. The Development Journey
-This project follows a structured progression to move from a conceptual identity to a fully orchestrated multi-agent rescue system. Each level builds a critical technical dependency for the next.
+This project follows a structured, simulation-based progression to move from conceptual identity to a fully orchestrated multi-agent rescue system. Each level builds a critical technical dependency for the next.
 
 | Level | Mission | Technical Dependency | Tech Stack |
 |-------|---------|----------------------|------------|
@@ -79,7 +79,7 @@ Optical satellites can't see through Nairobi's storm clouds. Our roadmap include
 
 ---
   
-**8. Success Metrics**
+## 8. Success Metric
 
 - Inference Speed: < 2 seconds for local image-to-risk analysis.
 - Offline Parity: 100% of core safety features must work in Airplane Mode.
