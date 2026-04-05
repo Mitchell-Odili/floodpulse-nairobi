@@ -31,7 +31,7 @@ This project follows a structured, simulation-based progression to move from con
 |-------|---------|----------------------|------------|
 | **Level 0** | **Identity & Baseline** | **Setup:** Establish the "Trinity" of user personas ( Commuter, Responder, Strategist) and the base geospatial asset pipeline. | Multi-Sided Personas, Asset Pipeline, PRD, Multi-turn image generation, Gemini (Nano Banana)|
 | **Level 1** | **Terrain Pinpointing** | Discovery: Zero-shot vision analysis using Gemma 4 to identify static "Sumps" vs "Ridges" in the Mbagathi corridor. | Gemma 4 31B, Spatial Vision Analysis |
-| **Level 2** | **Event-Driven SOS** | Ingest: Capturing live telemetry (SOS "Pulses") from Stranded Commuters to create dynamic nodes in the environment. | Event-driven agents, A2A communication |
+| **Level 2** | **Event-Driven SOS** | **Ingest:** Capturing live telemetry (SOS "Pulses") from Stranded Commuters to create dynamic nodes in the environment. | Event-driven agents, A2A communication |
 | **Level 3** | **Graph Orchestration** | **Compute:** Matching Responders to Commuters via pathfinding logic across dynamic nodes to find real-time safe routes. | Cloud Spanner Graph (GQL), Pathfinding |
 | **Level 4** | **Coordinate group rescue** | **Orchestration:** Multi-agent coordination to prevent traffic bottlenecks on "Safe Ridges" during mass evacuation events. | Agent orchestration, logistics, consensus protocols |
 
