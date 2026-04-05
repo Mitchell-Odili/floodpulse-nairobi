@@ -30,10 +30,6 @@ The Nairobi Trinity (Sarah, Juma, and Kamau) is generated using a Parametric Orc
 | **Asset Library** | `/assets/` | Production-ready storage for `avatars/` and `maps/` sprites. |
 
 
-- Persona Logic: Defined in Level_0_Identity.md.
-- Asset Management: Modular sprite system located in /assets/.
-- Environment: Initialized via identity_setup.py (Draft).
-
 ✅ Success Criteria
 - Three distinct user personas defined with specific technical dependencies.
 - Base geospatial assets (Mbagathi Satellite Crops) integrated into the project.
