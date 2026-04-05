@@ -43,7 +43,7 @@ To validate the **FloodPulse** core reasoning, we conducted a zero-shot analysis
 ### **Key Findings:**
 * **River Path:** Successfully identified the riparian corridor despite urban canopy cover.
 * **Critical Nodes:** Pinpointed three high-risk intersections:
-    1. **Lang'ata Road/ICU Crossing:** Identified as a primary arterial bottleneck.
+    1. **Lang'ata Road/ICC Crossing:** Identified as a primary arterial bottleneck.
     2. **South B/C Border:** Identified as a "low-water" neighborhood split-point.
     3. **Lower Basin Sumps:** Corrected identified as high-risk vehicle entrapment zones.
 * **Safe Ridge Logic:** The model autonomously identified the **South B Plateau** as a primary evacuation zone based on spectral terrain analysis (elevation vs. drainage).
