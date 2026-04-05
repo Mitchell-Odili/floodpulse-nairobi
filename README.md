@@ -1,4 +1,4 @@
-## 🌊 Project One-Pager: FloodPulse
+# 🌊 Project One-Pager: FloodPulse
 
 Project Lead: Mitchell Odili
 
@@ -6,19 +6,19 @@ Status: In-Development (Hackathon Phase)
 
 Stakeholders: Nairobi Urban Planning, Kenya Red Cross, Google DeepMind (Hackathon)
 
-**1. The Problem Statement**
+## 1. The Problem Statement
 
 During the March 2026 rains in Nairobi, flash floods turned arterial roads (like Lang'ata and Mbagathi) into death traps within minutes.
 - The Gap: Existing navigation tools (Google Maps/Waze) rely on active internet and crowdsourced data. When the grid fails, the data stops.
 - The Impact: Residents lack the "Local Truth" needed to find safe ridges and avoid submerged underpasses, leading to preventable loss of life.
 
-**2. The Solution: "Nairobi-First" Edge AI**
+## 2. The Solution: "Nairobi-First" Edge AI
 
 FloodPulse is an offline-first, multimodal resilience assistant. It uses the phone's native hardware to "see" and "reason" about flood risks without needing a cloud connection.
 - Vision: To provide every smartphone user in the Global South with a "Digital Guardian" that works when the world goes dark.
 - Simulated Validation: We utilize a Modular Agentic Simulation to model the Mbagathi River basin, allowing us to validate "Trinity" persona interactions and multi-agent consensus protocols in high-risk scenarios.
   
-**3. Key User Journeys**
+## 3. Key User Journeys
 
 - The Stranded Commuter: "My data is down, and I'm at T-Mall. Is the road ahead safe?"
 - The Local (Boda) Responder: "I am navigating the Mbagathi backstreets to reach a stranded family. I need to use my camera to 'pulse' the road ahead and verify if the soil is too saturated for my bike."
@@ -58,7 +58,7 @@ We leverage a hybrid stack that moves from rapid AI prototyping to high-scale cl
 | Environment | Purpose | Core Technologies |
 |-------------|---------|-------------------|
 | **AI Studio** | **Prototyping** | Gemma 4 31B (Multimodal Reasoning) |
-| **Kaggle** | **Data Engineering** | "Geospatial Notebooks, NASA SRTM Datasets | 
+| **Kaggle** | **Data Engineering** | Geospatial Notebooks, NASA SRTM Datasets | 
 | **GitHub** | **Source & CI/CD** | Python, Model Context Protocol (MCP) |
 | **Google Cloud** | **Production Scale** | Cloud Spanner (Graph), FastAPI, Cloud Run |
 
@@ -68,13 +68,13 @@ We leverage a hybrid stack that moves from rapid AI prototyping to high-scale cl
 
 Standard navigation apps often fail in Nairobi because the Mbagathi River is obscured by urban canopy and informal settlements. **FloodPulse** solves this through a "Multi-Sensor Fusion" approach:
 
-### **1. Multimodal Spatial Reasoning**
+### **a. Multimodal Spatial Reasoning**
 We leverage **Gemma 4** to analyze soil moisture levels (spectral darks) and vegetation density. The AI "sees" the river's true path even when it's missing from official map layers.
 
-### **2. NASA SRTM Integration**
+### **b. NASA SRTM Integration**
 We cross-reference AI visual findings with **NASA Shuttle Radar Topography Mission (SRTM)** data. This ensures that every "Safe Ridge" suggested by the app is mathematically validated for elevation—not just a visual guess.
 
-### **3. SAR (Synthetic Aperture Radar) Capability**
+### **c. SAR (Synthetic Aperture Radar) Capability**
 Optical satellites can't see through Nairobi's storm clouds. Our roadmap includes integrating **Sentinel-1 SAR** data, which uses radar to detect standing water through cloud cover, providing a "Pulse" of the flood in real-time.
 
 ---
