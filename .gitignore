@@ -18,3 +18,4 @@ requirements.txt
 # Sensitive Data (Safety first!)
 .env
 *.json_secret
+config.json
