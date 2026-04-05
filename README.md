@@ -21,23 +21,23 @@ FloodPulse is an offline-first, multimodal resilience assistant. It uses the pho
 **3. Key User Journeys**
 
 - The Stranded Commuter: "My data is down, and I'm at T-Mall. Is the road ahead safe?"
-- The Local Responder: "I need to map the new river boundary using only my phone camera to update the neighborhood graph."
-  
-**4. Technical Moat (The "Google" Stack)**
-- Intelligence: Gemma 4 E2B (Edge-optimized) for local multimodal reasoning.
-- Connectivity: Model Context Protocol (MCP) to bridge the model with pre-cached NASA/Sentinel-1 satellite tiles.
-- Navigation: Cloud Spanner Graph logic to calculate the shortest path to "High Ground" nodes during a breach.
-  
-**5. Success Metrics**
+- The Local (Boda) Responder: "I am navigating the Mbagathi backstreets to reach a stranded family. I need to use my camera to 'pulse' the road ahead and verify if the soil is too saturated for my bike."
+- The Urban Planner/Strategist: "I need to aggregated 'Ground Truth' data from offline devices to understand where the Mbagathi River actually breached, so we can update the city's drainage priority list."
 
-- Inference Speed: < 2 seconds for local image-to-risk analysis.
-- Offline Parity: 100% of core safety features must work in Airplane Mode.
-- Validation: 90% alignment between AI-predicted flood zones and UNOSAT post-disaster maps.
+## 🎮 4. The Development Journey
+This project follows a structured progression to move from a conceptual identity to a fully orchestrated multi-agent rescue system. Each level builds a critical technical dependency for the next.
 
+| Level | Mission | Technical Dependency | Tech Stack |
+|-------|---------|----------------------|------------|
+| **Level 0** | **Identity & Baseline** | **Setup:** Establish the "Trinity" of user personas ( Commuter, Responder, Strategist) and the base geospatial asset pipeline. | Multi-Sided Personas, Asset Pipeline, PRD, Multi-turn image generation, Gemini (Nano Banana)|
+| **Level 1** | **Terrain Pinpointing** | Discovery: Zero-shot vision analysis using Gemma 4 to identify static "Sumps" vs "Ridges" in the Mbagathi corridor. | Gemma 4 31B, Spatial Vision Analysis |
+| **Level 2** | **Event-Driven SOS** | Ingest: Capturing live telemetry (SOS "Pulses") from Stranded Commuters to create dynamic nodes in the environment. | Event-driven agents, A2A communication |
+| **Level 3** | **Graph Orchestration** | **Compute:** Matching Responders to Commuters via pathfinding logic across dynamic nodes to find real-time safe routes. | Cloud Spanner Graph (GQL), Pathfinding |
+| **Level 4** | Coordinate group rescue | **Orchestration:** Multi-agent coordination to prevent traffic bottlenecks on "Safe Ridges" during mass evacuation events. | Agent orchestration, logistics, consensus protocols |
 
 ---
 
-## 🧪 Phase 1: Technical Feasibility (Mbagathi Basin)
+## 🧪 5. Phase 1: Technical Feasibility (Mbagathi Basin)
 To validate the **FloodPulse** core reasoning, we conducted a zero-shot analysis using **Gemma 4 (31B)** on high-resolution satellite imagery of the Mbagathi River corridor.
 
 ### **Key Findings:**
@@ -52,7 +52,19 @@ To validate the **FloodPulse** core reasoning, we conducted a zero-shot analysis
 
 ---
 
-## 🛰️ Technical Deep Dive: The "Hidden River" Problem
+## 🛠️ 6. Technical Stack: The Path to Production
+We leverage a hybrid stack that moves from rapid AI prototyping to high-scale cloud infrastructure.
+
+| Environment | Purpose | Core Technologies |
+|-------------|---------|-------------------|
+| **AI Studio** | **Prototyping** | Gemma 4 31B (Multimodal Reasoning) |
+| **Kaggle** | **Data Engineering** | "Geospatial Notebooks, NASA SRTM Datasets | 
+| **GitHub** | **Source & CI/CD** | Python, Model Context Protocol (MCP) |
+| **Google Cloud** | **Production Scale** | Cloud Spanner (Graph), FastAPI, Cloud Run |
+
+---
+
+## 🛰️ 7. Technical Deep Dive: The "Hidden River" Problem
 
 Standard navigation apps often fail in Nairobi because the Mbagathi River is obscured by urban canopy and informal settlements. **FloodPulse** solves this through a "Multi-Sensor Fusion" approach:
 
@@ -64,3 +76,11 @@ We cross-reference AI visual findings with **NASA Shuttle Radar Topography Missi
 
 ### **3. SAR (Synthetic Aperture Radar) Capability**
 Optical satellites can't see through Nairobi's storm clouds. Our roadmap includes integrating **Sentinel-1 SAR** data, which uses radar to detect standing water through cloud cover, providing a "Pulse" of the flood in real-time.
+
+---
+  
+**8. Success Metrics**
+
+- Inference Speed: < 2 seconds for local image-to-risk analysis.
+- Offline Parity: 100% of core safety features must work in Airplane Mode.
+- Validation: 90% alignment between AI-predicted flood zones and UNOSAT post-disaster maps.
