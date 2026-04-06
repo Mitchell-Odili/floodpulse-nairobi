@@ -10,7 +10,21 @@ import random
 import sys
 
 # Configuration file is in project root
-CONFIG_FILE = "../../config.json"
+# CONFIG_FILE = "../../config.json"
+current_dir = os.path.dirname(os.path.abspath(__file__)) if '__file__' in globals() else os.getcwd()
+
+# 2. Find the 'floodpulse-nairobi' root specifically
+# This splits the path and finds the project folder, then joins it back together
+path_parts = current_dir.split(os.sep)
+if 'floodpulse-nairobi' in path_parts:
+    root_idx = path_parts.index('floodpulse-nairobi')
+    PROJECT_ROOT = os.sep.join(path_parts[:root_idx + 1])
+else:
+    # Fallback: Go up two levels if the folder name isn't found
+    PROJECT_ROOT = os.path.abspath(os.path.join(current_dir, "..", ".."))
+
+# 3. Define the final path
+CONFIG_FILE = os.path.join(PROJECT_ROOT, "config.json")
 
 # FloodPulse Role Mapping (Replaces Space Suits)
 ROLES = {
@@ -79,17 +93,28 @@ def get_appearance() -> str:
 def main():
     config = load_config()
 
-    # 1. Set Role and Theme Color
-    username, role_desc, theme_color = get_role()
-    config["username"] = username
-    config["suit_color"] = theme_color # Keeping key name for generator.py compatibility
+    print("\n🌍 Preparing FloodPulse Nairobi Mission...")
+    
+    # Check if we are doing a single selection or initializing the full team
+    mode = input("Generate (1) Single Persona or (2) Initialize Trinity? [default=1]: ").strip() or "1"
 
-    # 2. Set Appearance with Local Markers
-    config["appearance"] = f"{role_desc}, {get_appearance()}"
+    if mode == "2":
+        # This prepares the config with the metadata needed for batching
+        config["mission_mode"] = "trinity"
+        save_config(config)
+        print("\n✅ Mission set to Trinity Mode. create_identity.py will now generate all 3 personas.")
+    else:
+        # Standard single persona selection
+        username, role_desc, theme_color = get_role()
+        config["username"] = username
+        config["suit_color"] = theme_color
+        config["appearance"] = f"{role_desc}, {get_appearance()}"
+        config["mission_mode"] = "single"
+        save_config(config)
+        print(f"\n✅ Configuration Locked for {username}!")
 
-    save_config(config)
-    print(f"\n✅ Configuration Locked for {username}!")
-    print("Next: Run 'python create_identity.py' to generate assets on Vertex AI.")
+    print("Next: Run 'python create_identity.py' to generate assets.")
 
 if __name__ == "__main__":
     main()
+    
