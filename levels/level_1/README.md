@@ -16,8 +16,8 @@ Level 1 transitions FloodPulse from persona archetypes to geospatial reality. Us
 
 2. `vision_mcp.py` 
 - **Protocol:** A production-grade **Model Context Protocol** server.
-- **Intelligence:** Integrated with Gemini 2.5 Flash (via `google-generativeai`) to perform real-time pixel analysis.
-- **Functionality:** Exposes the `analyze_mbagathi_risk` tool, allowing the LLM to identify riparian boundaries and infrastructure vulnerabilities from local `.png` files.
+- **Intelligence:** Integrated with Gemini 2.5 Flash (via the modern `google-genai` SDK) to perform real-time pixel analysis.
+- **Functionality:** Exposes the `analyze_mbagathi_risk` tool, which performs **Multi-Sensor Fusion**. It cross-references static **Terrain Mapping** (identifying riparian sumps/ridges) with **Live Weather Telemetry** (Flash Index 0.0-1.0) to provide real-time, high-fidelity safety directives for the Mbagathi Basin.
 
 ---
 
