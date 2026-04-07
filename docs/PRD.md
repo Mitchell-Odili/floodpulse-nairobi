@@ -23,15 +23,21 @@ To achieve "Offline-First" resilience, the system follows a Modular Agentic Simu
 - **Logic:** Implemented `create_identity.py` and `generator.py` using an Orchestrator/Worker pattern.
 - **Output:** Generated consistent visual assets stored in `level_0/assets/.`
 
-### 4.2 Terrain Pinpointing (In-Progress)
-- **FR1:** The system MUST cache satellite tiles locally to support offline navigation. (✅ Implemented via `static_mapper.py`)
-- **FR2:** The system MUST overlay agent positions onto satellite terrain with sub-meter precision. (✅ Implemented)
-- **FR3:** The system MUST utilize Model Context Protocol (MCP) to allow LLMs to "read" local image data. (🛠️ Pending)
+### 4.2 Terrain Pinpointing (Completed)
+- **FR1:** The system MUST cache high-resolution (Zoom 17) satellite tiles locally to support offline navigation. (✅ Implemented via static_mapper.py)
+- **FR2:** The system MUST overlay agent positions onto satellite terrain with sub-meter precision using unique mission-sector tiles. (✅ Implemented)
+- **FR3:** The system MUST utilize Model Context Protocol (MCP) to bridge local image data with Multimodal LLMs (Gemini 2.5 Flash). (✅ Implemented via vision_mcp.py)
+- **FR4:** The system MUST support Multi-Sector Perception, allowing unique risk assessments for different topographical zones (Sump, Arterial, Ridge). (✅ Implemented)
+
+## 4.3 Dynamic Environment (Level 2 - In progress)
+- **FR5:** The system MUST fetch real-time rainfall data from the OpenWeatherMap API (or similar) for the Nairobi region.
+- **FR6:** The system MUST calculate a "Flash Index" by combining Terrain Type (from Level 1) with Rainfall Intensity (from Level 2).
+- **FR7:** The system MUST generate automated "Pulse Alerts" via the MCP server when the Flash Index exceeds a 0.7 threshold.
 
 ### 5. Technical Validation: "The Mbagathi Truth"
 - **Baseline:** Validated **Gemma 4 (31B)** spatial reasoning.
 - **Confirmed Sump:** T-Mall Underpass (`-1.3148, 36.8115`).
-- **Confirmed Ridge:** South B Plateau (`-1.3100, 36.8350`).
+- **Confirmed Ridge:** Madaraka/Highview (`-1.3110, 36.8185`).
 
 ### 6. Non-Functional Requirements (NFR)
 - **Offline Latency:** Inference for terrain risk analysis must be < 2 seconds.
