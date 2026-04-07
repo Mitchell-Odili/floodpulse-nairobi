@@ -1,7 +1,7 @@
 # 📄 Product Requirements Document: FloodPulse (Nairobi)
 **Project Code:** FP-NBO-2026
 
-**Status:** 🟢 Active Development (Level 1)
+**Status:** 🟢 Active Development (Level 3)
 
 ## 1. Problem Statement
 Existing navigation tools in Nairobi rely on static road data and active internet. During flash floods in the Mbagathi basin, infrastructure fails rapidly. Users lack a real-time, offline-first tool to identify "Ground Truth" hazards and find high-ground ridges.
@@ -46,6 +46,8 @@ To achieve "Offline-First" resilience, the system follows a Modular Agentic Simu
 - **FR8:** The system MUST utilize **Google Cloud Spanner** to store the Trinity (Sarah, Juma, Kamau) as living graph nodes.
 - **FR9:** The system MUST calculate "Safe Edges" (navigable paths) between nodes based on real-time Flash Index topography.
 - **FR10:** The system MUST support **Dynamic Rerouting** if a specific node (e.g., T-Mall) hits a Critical Pulse (0.7+).
+
+---
 
 ## 5. Technical Validation: "The Mbagathi Truth"
 - **Baseline:** Validated **Gemma 4 (31B)** spatial reasoning.
