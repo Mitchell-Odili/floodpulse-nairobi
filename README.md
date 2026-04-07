@@ -4,7 +4,7 @@
 
 Project Lead: Mitchell Odili
 
-**Status:** ✅ Level 0 Complete | 🛠️ Level 1 In-Development
+**Status:** Status: ✅ Level 1 Complete | 🌊 Level 2 Integration Starting
 
 **Mission:** Validating "Digital Guardian" protocols for urban flood resilience using multimodal LLMs and geospatial agent orchestration.
 
@@ -58,9 +58,9 @@ This project follows a structured, simulation-based progression to move from con
 
 | Level | Mission | Technical Dependency | Tech Stack |
 |-------|---------|----------------------|------------|
-| **Level 0** | **Identity & Baseline** | **Setup:** Establish the "Trinity" of user personas ( Commuter, Responder, Strategist) and the base geospatial asset pipeline. | Orchestrator/Worker Pattern, Vertex AI, Gemini 2.5 Flash, PIL |
-| **Level 1** | **Terrain Pinpointing** | Discovery: Zero-shot vision analysis using Gemma 4 to identify static "Sumps" vs "Ridges" in the Mbagathi corridor. | Gemma 4 31B, Spatial Vision Analysis |
-| **Level 2** | **Event-Driven SOS** | **Ingest:** Capturing live telemetry (SOS "Pulses") from Stranded Commuters to create dynamic nodes in the environment. | Event-driven agents, A2A communication |
+| **Level 0** | **Identity & Baseline** | **Orchestration:** Established the "Trinity" of user personas ( Commuter, Responder, Strategist) and the base geospatial asset pipeline. | Orchestrator/Worker Pattern, Vertex AI, Gemini 2.5 Flash, PIL |
+| **Level 1** | **Terrain Pinpointing** | **Infrastructure:** Implemented Model Context Protocol (MCP) for real-time vision analysis of the Mbagathi basin. | **MCP**, Gemini 2.5 Flash, Google Static Maps |
+| **Level 2** | **The Pulse (SOS)** | **Ingest:** Capturing live telemetry (SOS "Pulses") and OpenWeather data to create dynamic environment risk. | Event-driven agents, OpenWeather API, A2A communication |
 | **Level 3** | **Graph Orchestration** | **Compute:** Matching Responders to Commuters via pathfinding logic across dynamic nodes to find real-time safe routes. | Cloud Spanner Graph (GQL), Pathfinding |
 | **Level 4** | **Coordinate group rescue** | **Orchestration:** Multi-agent coordination to prevent traffic bottlenecks on "Safe Ridges" during mass evacuation events. | Agent orchestration, consensus protocols |
 
@@ -74,7 +74,7 @@ We leverage a hybrid stack that moves from rapid AI prototyping to high-scale cl
 | **AI Studio** | **Prototyping** | Gemma 4 31B (Multimodal Reasoning) |
 | **Vertex AI** | **Orchestration** | Gemini 2.5 Flash (Multimodal Persona Consistency) |
 | **Kaggle** | **Data Engineering** | Geospatial Notebooks, NASA SRTM Datasets | 
-| **GitHub** | **Source & CI/CD** | Python, Model Context Protocol (MCP) |
+| **GitHub** | **Source & CI/CD** | Python, Model Context Protocol (MCP) and FastMCP |
 | **Google Cloud** | **Production Scale** | Cloud Spanner (Graph), FastAPI, Cloud Run |
 
 ---
@@ -84,6 +84,7 @@ We leverage a hybrid stack that moves from rapid AI prototyping to high-scale cl
 Standard maps often fail in Nairobi because the Mbagathi River is obscured by urban canopy and informal settlements. **FloodPulse** solves this through a "Multi-Sensor Fusion" approach:
 
 - **Multimodal Spatial Reasoning:** AI analyzes soil moisture (spectral darks) to "see" the true path.
+- **Multi-Sector Tactical Spread:** Automated generation of Zoom-17 mission tiles for distinct topographical zones (Sump, Arterial, Ridge) to ensure high-definition context for local AI reasoning.
 - **NASA SRTM Integration:** Mathematical validation of elevation for every "Safe Ridge."
 - **SAR (Synthetic Aperture Radar) Capability:** Integrating Sentinel-1 SAR to detect standing water through cloud cover in real-time.
 
@@ -94,3 +95,11 @@ Standard maps often fail in Nairobi because the Mbagathi River is obscured by ur
 - Inference Speed: < 2 seconds for local image-to-risk analysis.
 - Offline Parity: 100% of core safety features must work in Airplane Mode.
 - Validation: 90% alignment between AI-predicted flood zones and UNOSAT post-disaster maps.
+
+## 9. **📍 Initial Deployment Nodes**
+
+| Agent | Landmark | Coordinates | Risk profile |
+|-------|----------|-------------|------|
+| **Sarah** | T-Mall Underpass | `-1.3148, 36.8115` | Hydrological Low Point |
+| **Juma** | Lang'ata Arterial | `-1.3165, 36.8135` | Infrastructure Bottleneck | 
+| **Kamau** | Madaraka Ridge | `-1.3110, 36.8185` | Strategic High Ground | 
