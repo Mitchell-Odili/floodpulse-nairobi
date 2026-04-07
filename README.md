@@ -100,6 +100,6 @@ Standard maps often fail in Nairobi because the Mbagathi River is obscured by ur
 
 | Agent | Landmark | Coordinates | Risk profile |
 |-------|----------|-------------|------|
-| **Sarah** | T-Mall Underpass | `-1.3148, 36.8115` | Hydrological Low Point |
-| **Juma** | Lang'ata Arterial | `-1.3165, 36.8135` | Infrastructure Bottleneck | 
-| **Kamau** | Madaraka Ridge | `-1.3110, 36.8185` | Strategic High Ground | 
+| **Sarah - Stranded Commuter** | T-Mall Underpass | `-1.3148, 36.8115` | Hydrological Low Point |
+| **Juma - Local/Boda Responder** | Lang'ata Arterial | `-1.3165, 36.8135` | Infrastructure Bottleneck | 
+| **Kamau - Urban Strategist** | Madaraka Ridge | `-1.3110, 36.8185` | Strategic High Ground | 
