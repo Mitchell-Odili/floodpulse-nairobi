@@ -34,9 +34,9 @@ To achieve "Offline-First" resilience, the system follows a Modular Agentic Simu
 - **Output:** Generated consistent visual assets stored in `level_0/assets/.`
 
 ### 4.2 Terrain Pinpointing (Completed)
-- **FR1:** The system MUST cache high-resolution (Zoom 17) satellite tiles locally to support offline navigation. (✅ Implemented via static_mapper.py)
+- **FR1:** The system MUST cache high-resolution (Zoom 17) satellite tiles locally to support offline navigation. (✅ Implemented via `static_mapper.py`)
 - **FR2:** The system MUST overlay agent positions onto satellite terrain with sub-meter precision using unique mission-sector tiles. (✅ Implemented)
-- **FR3:** The system MUST utilize Model Context Protocol (MCP) to bridge local image data with Multimodal LLMs (Gemini 2.5 Flash). (✅ Implemented via vision_mcp.py)
+- **FR3:** The system MUST utilize Model Context Protocol (MCP) to bridge local image data with Multimodal LLMs (Gemini 2.5 Flash). (✅ Implemented via `vision_mcp.py`)
 - **FR4:** The system MUST support Multi-Sector Perception, allowing unique risk assessments for different topographical zones (Sump, Arterial, Ridge). (✅ Implemented)
 
 ### 4.3 Dynamic Environment (Completed)
