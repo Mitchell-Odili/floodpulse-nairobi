@@ -96,6 +96,8 @@ Standard maps often fail in Nairobi because the Mbagathi River is obscured by ur
 - Offline Parity: 100% of core safety features must work in Airplane Mode.
 - Validation: 90% alignment between AI-predicted flood zones and UNOSAT post-disaster maps.
 
+---
+
 ## 📍 9. Initial Deployment Nodes
 
 | Agent | Landmark | Coordinates | Risk profile |
