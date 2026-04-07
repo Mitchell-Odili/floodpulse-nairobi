@@ -18,6 +18,14 @@ To achieve "Offline-First" resilience, the system follows a Modular Agentic Simu
 - **The Trinity Engine (Level 0):** Uses **Gemini 2.5 Flash** for high-fidelity identity and asset generation (Kenya-specific cultural markers).
 - **Geospatial Layer (Level 1):** Uses Google Static Maps API to fetch 640x640 satellite tiles for local caching (Mbagathi Sump, South B Ridge).
 
+### 3.1 Modular Evolution Matrix
+| Feature | Level 1: Terrain (Vision) | Level 2: Pulse (Telemetry) | Level 3: Graph (Orchestration) |
+|-------------|--------|--------------|---------------|
+| **Status** | ✅ Completed| ✅ Completed | 🔵 In Progress |
+| **Primary Data** | Google Static Maps API | OpenWeather API | Google Cloud Spanner |
+| **Core Logic** | Multi-Sector Pixel Analysis | Flash Index Normalization | Pathfinding (A) & Routing* |
+| **AI Mandate** | Identification (Sump vs Ridge) | Risk Assessment (Critical Alert) | System Coordination (SOS) |
+
 ## 4. Technical Specifications & Progress
 ### 4.1 Identity Orchestration (Completed)
 - **Logic:** Implemented `create_identity.py` and `generator.py` using an Orchestrator/Worker pattern.
@@ -29,17 +37,24 @@ To achieve "Offline-First" resilience, the system follows a Modular Agentic Simu
 - **FR3:** The system MUST utilize Model Context Protocol (MCP) to bridge local image data with Multimodal LLMs (Gemini 2.5 Flash). (✅ Implemented via vision_mcp.py)
 - **FR4:** The system MUST support Multi-Sector Perception, allowing unique risk assessments for different topographical zones (Sump, Arterial, Ridge). (✅ Implemented)
 
-## 4.3 Dynamic Environment (Level 2 - In progress)
-- **FR5:** The system MUST fetch real-time rainfall data from the OpenWeatherMap API (or similar) for the Nairobi region.
-- **FR6:** The system MUST calculate a "Flash Index" by combining Terrain Type (from Level 1) with Rainfall Intensity (from Level 2).
-- **FR7:** The system MUST generate automated "Pulse Alerts" via the MCP server when the Flash Index exceeds a 0.7 threshold.
+### 4.3 Dynamic Environment (Completed)
+- **FR5: Enviromental Telemetry:** The system fetches real-time rainfall data from the OpenWeatherMap API for the Mbagathi corridor. (✅ Implemented via `weather_service.py`).
+- **FR6: The Flash Index:** Implemented a normalization logic (0.0 - 1.0) that calculates risk based on 50mm/h rainfall thresholds. (✅ Implemented)
+- **FR7: Multi-Sensor Fusion** The MCP server (`vision_mcp.py`) now fuses Level 1 Terrain pixels with Level 2 Weather Pulse to generate high-fidelity safety directives. (✅ Implemented)
 
-### 5. Technical Validation: "The Mbagathi Truth"
+### 4.4 Graph Orchestration (Level 3 - In Progress)
+- **FR8:** The system MUST utilize **Google Cloud Spanner** to store the Trinity (Sarah, Juma, Kamau) as living graph nodes.
+- **FR9:** The system MUST calculate "Safe Edges" (navigable paths) between nodes based on real-time Flash Index topography.
+- **FR10:** The system MUST support **Dynamic Rerouting** if a specific node (e.g., T-Mall) hits a Critical Pulse (0.7+).
+
+## 5. Technical Validation: "The Mbagathi Truth"
 - **Baseline:** Validated **Gemma 4 (31B)** spatial reasoning.
 - **Confirmed Sump:** T-Mall Underpass (`-1.3148, 36.8115`).
 - **Confirmed Ridge:** Madaraka/Highview (`-1.3110, 36.8185`).
 
-### 6. Non-Functional Requirements (NFR)
+## 6. Non-Functional Requirements (NFR)
 - **Offline Latency:** Inference for terrain risk analysis must be < 2 seconds.
+- **Flash Index Latency:** API fetch and normalization must occur in < 1.5 seconds to ensure the Pulse remains "Real-Time."
+- **Pipe Integrity:** All background telemetry MUST be redirected to stderr to prevent JSON-RPC corruption in the MCP stream.
 - **Data Sovereignty:** Mission-critical API keys MUST be stored in .env and excluded from source control.
 - **Interoperability:** System architecture must support NASA SRTM and Sentinel-1 SAR data feeds.
