@@ -18,26 +18,37 @@ SARAH_LAT, SARAH_LON = -1.3148, 36.8115
 ZOOM = 17 
 SIZE = "640x640"
 
-def fetch_basemap():
-    """Fetches the satellite tile and saves it locally in Level 1."""
-    print(f"🛰️ Requesting satellite tile for Mbagathi Basin...")
+def fetch_basemap(lat, lon, zoom=16, size="640x640", filename="mbagathi_basemap.png"):
+    """
+    Fetches a satellite tile for specific coordinates.
+    TPM Note: Defaulting to 16 zoom and 640px for consistency across the project.
+    """
+    print(f"🛰️ Requesting satellite tile for coords: {lat}, {lon}...")
     
     url = (
         f"https://maps.googleapis.com/maps/api/staticmap?"
-        f"center={SARAH_LAT},{SARAH_LON}&zoom={ZOOM}&size={SIZE}"
+        f"center={lat},{lon}&zoom={zoom}&size={size}"
         f"&maptype=satellite&key={API_KEY}"
     )
     
-    response = requests.get(url)
-    if response.status_code == 200:
-        # Save map inside the current level_1 folder
+    try:
+        response = requests.get(url)
+        response.raise_for_status() # TPM Best Practice: Catch HTTP errors early
+        
         img = Image.open(BytesIO(response.content))
-        img.save("mbagathi_basemap.png")
-        print("✓ Basemap saved locally in Level 1.")
+        
+        # Ensure we save in the correct directory (Level 1)
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        save_path = os.path.join(script_dir, filename)
+        
+        img.save(save_path)
+        print(f"✓ Basemap saved: {filename}")
         return img
-    else:
-        print(f"❌ Error fetching map: {response.text}")
+        
+    except Exception as e:
+        print(f"❌ Error fetching map: {e}")
         return None
+
     
 def overlay_agent_icon(basemap, agent_name="sarah"):
     # 1. Get the directory where THIS script is (levels/level_1)
@@ -72,11 +83,34 @@ def overlay_agent_icon(basemap, agent_name="sarah"):
     basemap.save(output_path)
     print(f"🚀 SUCCESS! Mission Map Ready: {output_path}")
 
-
+            
 if __name__ == "__main__":
-    if not API_KEY:
-        print("❌ API Key missing! Check your .env file.")
-    else:
-        mbagathi_map = fetch_basemap()
-        if mbagathi_map:
-            overlay_agent_icon(mbagathi_map, "sarah")
+    print("\n🌊 FLOODPULSE: TACTICAL SPREAD DEPLOYMENT...")
+    print("-------------------------------------------")
+
+    # 1. Define the Trinity's unique coordinates
+    locations = {
+        "sarah": {"lat": -1.3148, "lon": 36.8115}, # Sump
+        "juma":  {"lat": -1.3165, "lon": 36.8135}, # Arterial
+        "kamau": {"lat": -1.3110, "lon": 36.8185}  # Ridge
+    }
+
+    # 2. Iterate and Generate
+    for agent, coords in locations.items():
+        print(f"📡 Sector Update: Fetching terrain for {agent.upper()}...")
+        
+        # Fetch a UNIQUE basemap for each agent's specific location
+        # Filename is mission-specific so we don't overwrite the master
+        agent_tile = fetch_basemap(
+            coords['lat'], 
+            coords['lon'], 
+            filename=f"{agent}_basemap_tile.png"
+        )
+
+        if agent_tile:
+            overlay_agent_icon(agent_tile, agent_name=agent)
+        else:
+            print(f"⚠️ Warning: Could not establish visual for {agent.upper()}")
+
+    print("-------------------------------------------")
+    print("✅ TACTICAL SPREAD COMPLETE. 3 unique sectors established.")

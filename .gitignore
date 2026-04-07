@@ -22,3 +22,4 @@ config.json
 
 # FloodPulse AI Outputs
 levels/level_0/outputs/
+levels/level_1/*.png
