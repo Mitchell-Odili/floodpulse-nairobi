@@ -47,8 +47,6 @@ To achieve "Offline-First" resilience, the system follows a Modular Agentic Simu
 - **FR9:** The system MUST calculate "Safe Edges" (navigable paths) between nodes based on real-time Flash Index topography.
 - **FR10:** The system MUST support **Dynamic Rerouting** if a specific node (e.g., T-Mall) hits a Critical Pulse (0.7+).
 
----
-
 ## 5. Technical Validation: "The Mbagathi Truth"
 - **Baseline:** Validated **Gemma 4 (31B)** spatial reasoning.
 - **Confirmed Sump:** T-Mall Underpass (`-1.3148, 36.8115`).
