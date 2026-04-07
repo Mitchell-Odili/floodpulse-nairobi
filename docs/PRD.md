@@ -16,7 +16,7 @@ To achieve "Offline-First" resilience, the system follows a Modular Agentic Simu
 
 - **Orchestration Engine:** A Python-based "Brain" managing the **"Trinity"** of user personas.
 - **The Trinity Engine (Level 0):** Uses **Gemini 2.5 Flash** for high-fidelity identity and asset generation (Kenya-specific cultural markers).
-- **Geospatial Layer (Level 1):** Uses **Google Static Maps API** to fetch 640x640 satellite tiles for local caching (Mbagathi Sump, South B Ridge).
+- **Geospatial Layer (Level 1):** Uses **Google Static Maps API** to fetch 640x640 satellite tiles for local caching (Mbagathi Sump, Langata Arterial, South B Ridge).
 - **Environmental Pulse (Level 2):** Integrates real-time precipitation telemetry via **OpenWeather API**. It converts raw meteorological data into a standardized Flash Index (0.0 - 1.0) to trigger autonomous safety protocols.
 - **Graph Orchestration (Level 3):** A persistent **Google Cloud Spanner** backbone that maps the "Trinity" as living nodes. It calculates dynamic "Safe Edges" (navigable paths) by cross-referencing terrain sumps with real-time weather intensity.
 
