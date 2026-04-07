@@ -11,16 +11,13 @@ Level 1 transitions FloodPulse from persona archetypes to geospatial reality. Us
 
 **🛠️ Technical Components**
 1. `static_mapper.py`
-The primary worker for this level. It handles the coordinate-to-pixel translation and "blits" agent icons onto the satellite base layer.
+- **Logic:** Implemented a **Multi-Sector Perception** loop. Instead of a single map, it fetches unique Zoom 17 satellite tiles for each agent to provide maximum visual context for the AI.
+- **Optimization:** Uses `.copy()` logic for memory efficiency and ensures Idempotency in asset generation.
 
-- **Input:** Latitude/Longitude coordinates + Level 0 Assets.
-- **Output:** sarah_on_mission.png (Visual mission brief).
-
-2. `map_discovery.py` (In-Development)
-The orchestrator that will manage the transition from static coordinates to dynamic event-driven "Pulses."
-
-3. `vision_mcp.py` (Planned)
-A Model Context Protocol (MCP) server that will allow LLMs (Gemma 4 / Gemini 2.5) to "reason" about the topography in the captured images—identifying riparian boundaries and elevation plateaus.
+2. `vision_mcp.py` 
+- **Protocol:** A production-grade **Model Context Protocol** server.
+- **Intelligence:** Integrated with Gemini 2.5 Flash (via `google-generativeai`) to perform real-time pixel analysis.
+- **Functionality:** Exposes the `analyze_mbagathi_risk` tool, allowing the LLM to identify riparian boundaries and infrastructure vulnerabilities from local `.png` files.
 
 ---
 
@@ -29,5 +26,5 @@ A Model Context Protocol (MCP) server that will allow LLMs (Gemma 4 / Gemini 2.5
 | Agent | Landmark | Coordinates | Role |
 |-------|----------|-------------|------|
 | **Sarah** | T-Mall Underpass | `-1.3148, 36.8115` | The "Sump" Observer |
-| **Juma** | Lang'ata/ICC | `-1.3255, 36.8020` | The Arterial Responder | 
-| **Kamau** | South B Plateau | `-1.3100, 36.8350` | The Ridge Strategist | 
+| **Juma** | Lang'ata/ICC | `-1.3165, 36.8135` | The Arterial Responder | 
+| **Kamau** | Madaraka/Highview | `-1.3110, 36.8185` | The Ridge Strategist | 
