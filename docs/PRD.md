@@ -50,6 +50,7 @@ To achieve "Offline-First" resilience, the system follows a Modular Agentic Simu
 ## 5. Technical Validation: "The Mbagathi Truth"
 - **Baseline:** Validated **Gemma 4 (31B)** spatial reasoning.
 - **Confirmed Sump:** T-Mall Underpass (`-1.3148, 36.8115`).
+- **Confirmed Arterial:** Langata/ICC (`-1.3165, 36.8135`)
 - **Confirmed Ridge:** Madaraka/Highview (`-1.3110, 36.8185`).
 
 ## 6. Non-Functional Requirements (NFR)
