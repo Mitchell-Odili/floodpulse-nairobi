@@ -4,7 +4,7 @@
 
 Project Lead: Mitchell Odili
 
-**Status:** Status: ✅ Level 1 Complete | 🌊 Level 2 Integration Starting
+**Status:** ✅ Level 3 Complete | 🌊 Level 4 Coordination Starting
 
 **Mission:** Validating "Digital Guardian" protocols for urban flood resilience using multimodal LLMs and geospatial agent orchestration.
 
@@ -61,7 +61,7 @@ This project follows a structured, simulation-based progression to move from con
 | **Level 0** | **Identity & Baseline** | **Orchestration:** Established the "Trinity" of user personas ( Commuter, Responder, Strategist) and the base geospatial asset pipeline. | Orchestrator/Worker Pattern, Vertex AI, Gemini 2.5 Flash, PIL |
 | **Level 1** | **Terrain Pinpointing** | **Infrastructure:** Implemented Model Context Protocol (MCP) for real-time vision analysis of the Mbagathi basin. | **MCP**, Gemini 2.5 Flash, Google Static Maps |
 | **Level 2** | **The Pulse (SOS)** | **Ingest:** Capturing live telemetry (SOS "Pulses") and OpenWeather data to create dynamic environment risk. | Event-driven agents, OpenWeather API, A2A communication |
-| **Level 3** | **Graph Orchestration** | **Compute:** Matching Responders to Commuters via pathfinding logic across dynamic nodes to find real-time safe routes. | Cloud Spanner Graph (GQL), Pathfinding |
+| **Level 3** | **Graph Orchestration** | **Compute:** Mapping the Trinity as live nodes. Calculated dynamic "Safe Edges" via GQL traversal and WKT location strings. | Cloud Spanner Graph (GQL), Google Cloud, Python |
 | **Level 4** | **Coordinate group rescue** | **Orchestration:** Multi-agent coordination to prevent traffic bottlenecks on "Safe Ridges" during mass evacuation events. | Agent orchestration, consensus protocols |
 
 ---
@@ -75,7 +75,10 @@ We leverage a hybrid stack that moves from rapid AI prototyping to high-scale cl
 | **Vertex AI** | **Orchestration** | Gemini 2.5 Flash (Multimodal Persona Consistency) |
 | **Kaggle** | **Data Engineering** | Geospatial Notebooks, NASA SRTM Datasets | 
 | **GitHub** | **Source & CI/CD** | Python, Model Context Protocol (MCP) and FastMCP |
-| **Google Cloud** | **Production Scale** | Cloud Spanner (Graph), FastAPI, Cloud Run |
+| **Google Cloud** | **Production Scale** | Cloud Spanner Graph(Live/Seeded), FastAPI, Cloud Run, WKT (Well-Known Text) Spatial Modeling |
+
+🛡️ Infrastructure Resilience
+To ensure the "Digital Guardian" survives unstable environments, Level 3 implemented a **Dual-Redundancy DDL** pattern. The system features a self-healing initialization logic that prioritizes local schema files but maintains a hardcoded DDL backup, ensuring the Mbagathi Property Graph can be reconstituted anywhere, anytime.
 
 ---
 
