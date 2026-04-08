@@ -57,5 +57,5 @@ SELECT * FROM GRAPH_TABLE(FloodResilienceGraph
 ### 🛠️ Technical Decisions & Pivots
 - **Spatial Data Type:** Pivoted from `ST_GEOMETRY` to `STRING(MAX)` for the `location` column to ensure environment compatibility while maintaining Well-Known Text (WKT) standards.
 - Colocation: Moved `schema.sql` into the level_3 directory to create a self-contained, modular deployment package.
-
+---
 Status: Level 3 Fully Operational | Region: Nairobi, Kenya (NBO)
