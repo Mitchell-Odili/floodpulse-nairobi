@@ -39,23 +39,20 @@ This script populates the network with our core personas using ACID-compliant tr
 2. **Seed Data**
    ```powershell
    python levels/level_3/seed_data.py
-   
 
-**🔍 Verification Queries**
+### 🔍 Verification Queries
 To verify the graph traversal, run the following GQL in Spanner Studio:
-   ``` SQL
-   SELECT * FROM GRAPH_TABLE(FloodResilienceGraph 
-      MATCH (r:Nodes)-[e:ConnectedTo]->(res:Nodes)
-      WHERE r.current_flash_index > 0.7
-      RETURN 
-         r.name AS AtRiskResident, 
-         r.current_flash_index AS RiskLevel,
-         res.name AS AssignedResponder
-   );
+``` SQL
+SELECT * FROM GRAPH_TABLE(FloodResilienceGraph 
+   MATCH (r:Nodes)-[e:ConnectedTo]->(res:Nodes)
+   WHERE r.current_flash_index > 0.7
+   RETURN 
+      r.name AS AtRiskResident, 
+      r.current_flash_index AS RiskLevel,
+      res.name AS AssignedResponder
+); 
 
----
-
-**🛠️ Technical Decisions & Pivots**
+### 🛠️ Technical Decisions & Pivots
 - **Spatial Data Type:** Pivoted from `ST_GEOMETRY` to `STRING(MAX)` for the `location` column to ensure environment compatibility while maintaining Well-Known Text (WKT) standards.
 - Colocation: Moved `schema.sql` into the level_3 directory to create a self-contained, modular deployment package.
 
