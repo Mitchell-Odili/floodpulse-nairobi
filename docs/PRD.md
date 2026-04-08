@@ -1,7 +1,7 @@
 # 📄 Product Requirements Document: FloodPulse (Nairobi)
 **Project Code:** FP-NBO-2026
 
-**Status:** 🟢 Active Development (Level 3)
+**Status:** Status: 🟢 Completed (Level 3) | 🟡 Level 4 Pending.
 
 ## 1. Problem Statement
 Existing navigation tools in Nairobi rely on static road data and active internet. During flash floods in the Mbagathi basin, infrastructure fails rapidly. Users lack a real-time, offline-first tool to identify "Ground Truth" hazards and find high-ground ridges.
@@ -23,10 +23,16 @@ To achieve "Offline-First" resilience, the system follows a Modular Agentic Simu
 ### 3.1 Modular Evolution Matrix
 | Feature | Level 1: Terrain (Vision) | Level 2: Pulse (Telemetry) | Level 3: Graph (Orchestration) |
 |-------------|--------|--------------|---------------|
-| **Status** | ✅ Completed| ✅ Completed | 🔵 In Progress |
+| **Status** | ✅ Completed| ✅ Completed | ✅ Completed |
 | **Primary Data** | Google Static Maps API | OpenWeather API | Google Cloud Spanner |
-| **Core Logic** | Multi-Sector Pixel Analysis | Flash Index Normalization | Pathfinding (A) & Routing* |
-| **AI Mandate** | Identification (Sump vs Ridge) | Risk Assessment (Critical Alert) | System Coordination (SOS) |
+| **Core Logic** | Multi-Sector Pixel Analysis | Flash Index Normalization | Property Graph Traversal (GQL) |
+| **AI Mandate** | Identification (Sump vs Ridge) | Risk Assessment (Critical Alert) | Networked Resilience (SOS) |
+
+### 3.2 Architectural Resilience: Dual-Redundancy DDL
+To ensure "offline-first" reliability and prevent deployment failures in low-connectivity environments, the Spanner initialization layer utilizes a **Dual-Redundancy DDL pattern.**
+
+- **Primary:** The system attempts to fetch the schema from a local `schema.sql` file.
+- **Secondary (Fail-Safe):** In the event of file-path corruption or missing artifacts, the system falls back to an **Internal Hardcoded DDL** manifest to ensure the database "Brain" can always be reconstituted
 
 ## 4. Technical Specifications & Progress
 ### 4.1 Identity Orchestration (Completed)
@@ -45,15 +51,15 @@ To achieve "Offline-First" resilience, the system follows a Modular Agentic Simu
 - **FR7: Multi-Sensor Fusion** The MCP server (`vision_mcp.py`) now fuses Level 1 Terrain pixels with Level 2 Weather Pulse to generate high-fidelity safety directives. (✅ Implemented)
 
 ### 4.4 Graph Orchestration (Level 3 - In Progress)
-- **FR8:** The system MUST utilize **Google Cloud Spanner** to store the Trinity (Sarah, Juma, Kamau) as living graph nodes.
-- **FR9:** The system MUST calculate "Safe Edges" (navigable paths) between nodes based on real-time Flash Index topography.
-- **FR10:** The system MUST support **Dynamic Rerouting** if a specific node (e.g., T-Mall) hits a Critical Pulse (0.7+).
+- **FR8: Persistent State:** The system utilizes **Google Cloud Spanner** (Instance: survivor-network) to store the Trinity (Sarah, Juma, Kamau) as living graph nodes. (✅ Implemented via `spanner_init.py`)
+- **FR9: Relational Intelligence:** Implemented `FloodResilienceGraph` with ConnectedTo edges to map emergency lifelines between residents and responders. (✅ Implemented)
+- **FR10: Data Integrity:** System supports Idempotent Initialization and "Smart Repair" logic to ensure infrastructure stability in unstable connectivity environments. (✅ Implemented)
+- **FR11: GQL-Based Routing:** The system uses **Google Query Language (GQL)** to filter nodes by risk index and return optimized responder paths. (✅ Implemented)
 
 ## 5. Technical Validation: "The Mbagathi Truth"
 - **Baseline:** Validated **Gemma 4 (31B)** spatial reasoning.
-- **Confirmed Sump:** T-Mall Underpass (`-1.3148, 36.8115`).
-- **Confirmed Arterial:** Langata/ICC (`-1.3165, 36.8135`)
-- **Confirmed Ridge:** Madaraka/Highview (`-1.3110, 36.8185`).
+- **Graph Verification:** Confirmed directed pathing from Sarah (Resident) at high-risk sump coordinates to Juma (Responder).
+- **Data Pivot:** Successfully transitioned from `ST_GEOMETRY` to **WKT String** format for location data to ensure cross-region compatibility without sacrificing spatial accuracy.
 
 ## 6. Non-Functional Requirements (NFR)
 - **Offline Latency:** Inference for terrain risk analysis must be < 2 seconds.
