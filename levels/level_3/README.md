@@ -42,7 +42,8 @@ This script populates the network with our core personas using ACID-compliant tr
 
 ### 🔍 Verification Queries
 To verify the graph traversal, run the following GQL in Spanner Studio:
-``` SQL
+
+```sql
 SELECT * FROM GRAPH_TABLE(FloodResilienceGraph 
    MATCH (r:Nodes)-[e:ConnectedTo]->(res:Nodes)
    WHERE r.current_flash_index > 0.7
@@ -50,7 +51,8 @@ SELECT * FROM GRAPH_TABLE(FloodResilienceGraph
       r.name AS AtRiskResident, 
       r.current_flash_index AS RiskLevel,
       res.name AS AssignedResponder
-); 
+);
+```
 
 ### 🛠️ Technical Decisions & Pivots
 - **Spatial Data Type:** Pivoted from `ST_GEOMETRY` to `STRING(MAX)` for the `location` column to ensure environment compatibility while maintaining Well-Known Text (WKT) standards.
