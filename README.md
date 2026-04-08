@@ -78,6 +78,7 @@ We leverage a hybrid stack that moves from rapid AI prototyping to high-scale cl
 | **Google Cloud** | **Production Scale** | Cloud Spanner Graph(Live/Seeded), FastAPI, Cloud Run, WKT (Well-Known Text) Spatial Modeling |
 
 🛡️ Infrastructure Resilience
+
 To ensure the "Digital Guardian" survives unstable environments, Level 3 implemented a **Dual-Redundancy DDL** pattern. The system features a self-healing initialization logic that prioritizes local schema files but maintains a hardcoded DDL backup, ensuring the Mbagathi Property Graph can be reconstituted anywhere, anytime.
 
 ---
