@@ -4,6 +4,8 @@
 
 Project Lead: Mitchell Odili
 
+Experimenting with Gemini 3.5 and WebMCP.
+
 **Status:** ✅ Level 3 Complete | 🌊 Level 4 Coordination Starting
 
 **Mission:** Validating "Digital Guardian" protocols for urban flood resilience using multimodal LLMs and geospatial agent orchestration.
