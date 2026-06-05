@@ -4,6 +4,15 @@
 
 Establish the foundational "User Personas" and technical environment for the FloodPulse ecosystem. This level focuses on identity generation and the geospatial asset pipeline required for the Mbagathi Basin pilot.
 
+**⚙️ Environment Prerequisites**
+Before running the identity pipeline, ensure your GCP environment is configured:
+
+- Project: <YOUR PROJECT_ID>
+- API: aiplatform.googleapis.com must be enabled.
+- Authentication: ```bash
+gcloud auth application-default login
+gcloud auth application-default set-quota-project <YOUR PROJECT_ID>
+
 **👥 The Trinity Personas**
 
 In this level, the user selects one of three distinct identities. Each identity validates a different layer of the technical stack:
@@ -16,7 +25,7 @@ In this level, the user selects one of three distinct identities. Each identity 
 
 The Nairobi Trinity (Sarah, Juma, and Kamau) is generated using a Parametric Orchestration model. Instead of manual creation, the system uses a shared configuration to ensure visual consistency across different perspectives.
 
-- Identity Consistency: Uses Gemini 2.5 Flash Image chat sessions to carry visual traits (e.g., the Kenyan flag beaded bracelet) from the 2D portrait to the top-down map icon.
+- Identity Consistency: Uses Gemini 3.1 Flash Image chat sessions to carry visual traits (e.g., the Kenyan flag beaded bracelet) from the 2D portrait to the top-down map icon.
 
 - Asset Management: A modular pipeline separates "Drafts" (temporary outputs) from "Production Assets." Finalized sprites are promoted to categorized directories in /assets/ for Frontend consumption.
 
