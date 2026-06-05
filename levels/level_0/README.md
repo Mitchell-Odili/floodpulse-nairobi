@@ -10,9 +10,11 @@ Before running the identity pipeline, ensure your GCP environment is configured:
 
 - Project: "YOUR PROJECT_ID"
 - API: aiplatform.googleapis.com must be enabled.
-- Authentication: ```bash
+- Authentication: 
+```bash
 gcloud auth application-default login
 gcloud auth application-default set-quota-project "YOUR PROJECT_ID"
+```
 
 **👥 The Trinity Personas**
 
