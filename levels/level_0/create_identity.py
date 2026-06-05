@@ -8,6 +8,7 @@ import json
 import os
 import sys
 import requests
+from generator import generate_explorer_avatar
 
 # Configuration
 # CONFIG_FILE = "../config.json" # Adjusted path for levels/level_0/ structure
@@ -45,132 +46,46 @@ def load_config() -> dict:
         print(f" Error: Missing config fields: {', '.join(missing)}")
         sys.exit(1)
 
-    # Check for persona customization
-    if "appearance" not in config:
-        print(" Error: Avatar preferences (appearance) not set in config.json.")
-        sys.exit(1)
-
     return config
 
-
-def generate_avatar(config, portrait_path, icon_path) -> dict:
-    """Calls the user's generator code to create Sarah/Juma/Kamau sprites."""
-    try:
-        from generator import generate_explorer_avatar
-    except ImportError as e:
-        print(f" Error importing generator: {e}")
-        sys.exit(1)
-
-    os.makedirs("outputs", exist_ok=True)
-
-    try:
-        result = generate_explorer_avatar(config, portrait_path, icon_path)
-    except Exception as e:
-        print(f" Error during generation: {e}")
-        sys.exit(1)
-
-    if not result or "portrait_path" not in result or "icon_path" not in result:
-        print(" Error: generator.py must return portrait_path and icon_path")
-        sys.exit(1)
-
-    return result
-
-
-def upload_avatar(config: dict, portrait_path: str, icon_path: str) -> dict:
-    """
-    Upload avatar images to the FloodPulse API.
-    Note: If you haven't built the Level 2 backend yet, this will fail.
-    For now, we'll wrap it in a try/except to allow local-only testing.
-    """
-    api_base = config["api_base"]
-    participant_id = config["participant_id"]
-    url = f"{api_base}/participants/{participant_id}/avatar"
-
-    print(f"📡 Attempting upload to {api_base}...")
-    
-    try:
-        with open(portrait_path, "rb") as p_file, open(icon_path, "rb") as i_file:
-            files = {
-                "portrait": ("portrait.png", p_file, "image/png"),
-                "icon": ("icon.png", i_file, "image/png")
-            }
-            # Timeout set to 5s for local testing; increase if using remote GCP
-            response = requests.post(url, files=files, timeout=5)
-            return response.json()
-    except Exception:
-        print("⚠️  Backend not reachable. Skipping upload (Level 2 dependency).")
-        return {"status": "local_success"}
-
-
-def print_success(config: dict):
-    """Print the FloodPulse confirmation box."""
-    username = config["username"]
-    event = config["event_code"]
-    # Default to Mbagathi Basin coordinates if not set
-    lat = config.get("coords", {}).get("lat", "-1.3211")
-    lng = config.get("coords", {}).get("lng", "36.8041")
-
-    print()
-    print("╔═══════════════════════════════════════════════════════════════╗")
-    print("║                ✅ NAIROBI IDENTITY CONFIRMED!                 ║")
-    print("╠═══════════════════════════════════════════════════════════════╣")
-    print("║                                                               ║")
-    print(f"║  Persona: {username:<51} ║")
-    print(f"║  Deployment: {event:<48} ║")
-    print(f"║  Coordinates: {lat}, {lng:<36} ║")
-    print("║                                                               ║")
-    print("║  🗺️  Explorer registered in Mbagathi Basin Graph.             ║")
-    print("║                                                               ║")
-    print("║  ✅ Level 0 complete! Ready for Level 1: Terrain Discovery.   ║")
-    print("║                                                               ║")
-    print("╚═══════════════════════════════════════════════════════════════╝")
-
-
-
-
 def main():
-    # 1. First, find your config (The "Nairobi Handshake")
     config = load_config()
-    
-    # 2. Site Prep: Ensure the directory exists locally
     os.makedirs("outputs", exist_ok=True)
-    
-    # 3. Define the Trinity (Sarah is the priority)
+
+    # 1. Define the pool of candidates
     trinity = [
         {"id": "sarah", "role": "Stranded Commuter", "color": "Blue", "appearance": "Professional attire, blue distress aura"},
         {"id": "juma", "role": "Boda First-Responder", "color": "Green", "appearance": "High-vis reflective vest, motorcycle helmet"},
         {"id": "kamau", "role": "Urban Strategist", "color": "Gold", "appearance": "Smart corporate attire, tech-blue silhouette"}
     ]
 
-    for persona in trinity:
+    # 2. Determine Scope (Trinity or Single)
+    mode = config.get("mission_mode", "trinity")
+    targets = trinity if mode == "trinity" else [next(p for p in trinity if p['id'] == config.get("id", "sarah"))]
+
+    print(f"\n🚀 Launching Identity Phase in {mode.upper()} mode...")
+
+    for persona in targets:
         portrait_path = f"outputs/{persona['id']}_portrait.png"
         icon_path = f"outputs/{persona['id']}_icon.png"
 
-        # CREDIT SAVER: Check if this specific persona already exists
         if os.path.exists(portrait_path) and os.path.exists(icon_path):
-            print(f"✅ {persona['role']} ({persona['id']}) assets found. Skipping...")
+            print(f"✅ {persona['id']} assets exist. Skipping.")
             continue
 
-        print(f"🚀 Initializing Vertex AI for {persona['role']} ({persona['id']})...")
-        
-        # Inject persona details into config for the generator
-        config["username"] = f"{persona['role']} ({persona['id'].capitalize()})"
-        config["suit_color"] = persona["color"]
-        config["appearance"] = f"{persona['appearance']}, wearing a Kenyan flag beaded bracelet"
+        # 3. Inject Persona Context into the global config
+        # We merge system defaults (coords, api_base) with persona specifics
+        persona_config = config.copy()
+        persona_config.update({
+            "username": f"{persona['role']} ({persona['id'].capitalize()})",
+            "suit_color": persona["color"],
+            "appearance": f"{persona['appearance']}, wearing a Kenyan flag beaded bracelet"
+        })
 
-        # Step 1: Generate AI Assets (Pass the specific paths to the generator)
-        # Ensure your generate_avatar() function accepts these paths!
-        result = generate_avatar(config, portrait_path, icon_path)
-        
-        if result:
-            print(f"✓ {persona['id'].capitalize()} Assets Generated.")
-            # Step 2: Network Sync (Optional)
-            # upload_avatar(config, portrait_path, icon_path)
+        print(f"🎨 Generating {persona['id']}...")
+        generate_explorer_avatar(persona_config, portrait_path, icon_path)
 
-    # Step 3: Final Confirmation
-    print("\n🌍 FloodPulse Identity Phase Complete.")
-    print("Check 'levels/level_0/outputs/' for Sarah, Juma, and Kamau.")
-
+    print("\n🌍 Level 0 Complete: Identity confirmed.")
 
 if __name__ == "__main__":
     main()

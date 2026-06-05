@@ -26,7 +26,7 @@ else:
 # 3. Define the final path
 CONFIG_FILE = os.path.join(PROJECT_ROOT, "config.json")
 
-# FloodPulse Role Mapping (Replaces Space Suits)
+# FloodPulse Role Mapping (Replaces Attire)
 ROLES = {
     "1": ("Stranded Commuter (Sarah)", "professional attire, holding a glowing smartphone, blue distress aura"),
     "2": ("Boda First-Responder (Juma)", "high-visibility green reflective vest, motorcycle helmet, rugged street gear"),
@@ -51,9 +51,14 @@ def load_config() -> dict:
     with open(CONFIG_FILE, "r") as f:
         return json.load(f)
 
+
 def save_config(config: dict) -> None:
+    """Updates the config file safely."""
+    # Ensure we don't accidentally lose system settings
+    # In a production app, you might use a separate 'user_profile.json'
     with open(CONFIG_FILE, "w") as f:
         json.dump(config, f, indent=4)
+    print("✓ Configuration synced to project root.")
 
 def get_role() -> tuple:
     """Prompt user to select a FloodPulse role."""
@@ -90,6 +95,18 @@ def get_appearance() -> str:
     print(f"✓ Appearance set: {appearance}")
     return appearance
 
+def get_location(default_coords: dict) -> dict:
+    """Allow user to override default coordinates."""
+    print(f"\n🌍 Current mission focus: {default_coords}")
+    choice = input("Use default coordinates? [Y/n]: ").strip().lower()
+    
+    if choice == 'n':
+        lat = input("Enter Latitude: ").strip()
+        lng = input("Enter Longitude: ").strip()
+        return {"lat": float(lat), "lng": float(lng)}
+    
+    return default_coords
+
 def main():
     config = load_config()
 
@@ -110,9 +127,12 @@ def main():
         config["suit_color"] = theme_color
         config["appearance"] = f"{role_desc}, {get_appearance()}"
         config["mission_mode"] = "single"
-        save_config(config)
+
+        # Only prompt for custom location if in single mode
+        config["coords"] = get_location(config.get("default_coords"))
         print(f"\n✅ Configuration Locked for {username}!")
 
+    save_config(config)
     print("Next: Run 'python create_identity.py' to generate assets.")
 
 if __name__ == "__main__":
