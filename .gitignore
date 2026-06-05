@@ -19,7 +19,6 @@ requirements.txt
 # Sensitive Data (Safety first!)
 .env
 *.json_secret
-config.json
 
 # FloodPulse AI Outputs
 levels/level_0/outputs/
