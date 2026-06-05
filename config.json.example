@@ -1,0 +1,5 @@
+{
+  "event_code": "YOUR-EVENT-CODE-HERE",
+  "project_id": "YOUR-GCP-PROJECT-ID",
+  "api_base": "https://your-api-base-url"
+}

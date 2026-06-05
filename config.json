@@ -1,12 +1,8 @@
 {
   "event_code": "NBO-MBAGATHI-2026",
-  "username": "Sarah",
-  "participant_id": "commuter_sarah_001",
+  "project_id": "floodpulse-nairobi",
   "api_base": "https://api.floodpulse.nbo",
-  "suit_color": "Blue",
-  "appearance": "Nairobi professional, Ankara patterns, Kenyan flag beaded bracelet",
-  "starting_node": "TMALL_UNDERPASS",
-  "coords": {
+  "default_coords": {
     "lat": -1.3211,
     "lng": 36.8041
   }
