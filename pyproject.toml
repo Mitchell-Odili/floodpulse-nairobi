@@ -1,15 +1,10 @@
-po[tool.poetry]
+[project]
 name = "floodpulse-nairobi"
 version = "0.1.0"
-description = "Flood resilience engine for Nairobi"
-authors = ["Mitchell-Odili <mitchellodili@gmail.com>"]
+description = "Add your description here"
 readme = "README.md"
-packages = [{include = "floodpulse_nairobi"}]
-
-[tool.poetry.dependencies]
-python = "^3.11"
-
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires-python = ">=3.11"
+dependencies = [
+    "fastmcp>=3.4.0",
+    "google-genai>=2.8.0",
+]
