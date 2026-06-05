@@ -8,8 +8,8 @@ Establish the foundational "User Personas" and technical environment for the Flo
 
 Before running the identity pipeline, ensure your GCP environment is configured:
 
-- Project: "YOUR PROJECT_ID"
-- API: aiplatform.googleapis.com must be enabled.
+- Project: `"YOUR PROJECT_ID"`
+- API: `aiplatform.googleapis`.com must be enabled.
 - Authentication: 
 ```bash
 gcloud auth application-default login
