@@ -20,6 +20,7 @@ Level 1 transitions FloodPulse from persona archetypes to geospatial reality. Us
 - **Functionality:** Exposes the `analyze_mbagathi_risk` tool, which performs **Multi-Sensor Fusion**. It cross-references static **Terrain Mapping** (identifying riparian sumps/ridges) with **Live Weather Telemetry** (Flash Index 0.0-1.0) to provide real-time, high-fidelity safety directives for the Mbagathi Basin.
 
 ---
+| **Asset Library** | `/assets/` | Production-ready storage for `avatars/` and `maps/` sprites. |
 
 **📍 Initial Deployment Nodes**
 
