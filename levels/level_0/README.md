@@ -38,8 +38,7 @@ The Nairobi Trinity (Sarah, Juma, and Kamau) is generated using a Parametric Orc
 |-------------|---------|-------------------|
 | **User Interface** | `customize.py` | UI for selecting the active persona and setting mission metadata. |
 | **Orchestrator** | `create_identity.py` | Manages the "Trinity" loop, file pathing, and Credit Saver logic. | 
-| **Worker Engine** | `generator.py` | Executes multimodal Vertex AI calls and handles image extraction. |
-| **Asset Library** | `/assets/` | Production-ready storage for `avatars/` and `maps/` sprites. |
+| **Worker Engine** | `generator.py` | Executes multimodal Vertex AI calls and handles image extraction. |git 
 
 
 ✅ Success Criteria
