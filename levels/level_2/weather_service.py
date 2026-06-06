@@ -44,7 +44,7 @@ def get_nairobi_pulse(name, lat, lon):
         status = get_flash_status(flash_index)
         
         # print(f"📍 Node: {name:15} | 🌧️ {current_rain:4}mm/h | {status}")
-        print(f"DEBUG: Checking {name}", file=sys.stderr)
+        # print(f"DEBUG: Checking {name}", file=sys.stderr)
         
         return {
             "node": name,

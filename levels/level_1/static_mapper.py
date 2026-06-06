@@ -1,116 +1,93 @@
 """
-Level 1: Terrain Discovery - Static Mapper
-Worker module to fetch satellite tiles and overlay agent icons.
+FloodPulse Nairobi - Level 1: Terrain Discovery (Static Mapper)
+Orchestrates mission map generation using a dedicated asset pipeline.
 """
 
 import os
+import json
 import requests
 from PIL import Image
-from dotenv import load_dotenv
 from io import BytesIO
+from dotenv import load_dotenv
 
-# Load API Key from .env (usually in the root folder)
+# 1. Pathing Setup
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# Level 0 Assets (Personas)
+ASSETS_DIR = os.path.join(PROJECT_ROOT, "levels", "level_0", "outputs")
+# Level 1 Assets (New Directory Structure)
+BASEMAPS_DIR = os.path.join(os.path.dirname(__file__), "assets", "basemaps")
+MAPS_DIR = os.path.join(os.path.dirname(__file__), "assets", "maps")
+
+# Ensure sub-directories exist
+os.makedirs(BASEMAPS_DIR, exist_ok=True)
+os.makedirs(MAPS_DIR, exist_ok=True)
+
+# Load API Key
 load_dotenv()
 API_KEY = os.getenv("GOOGLE_MAPS_API_KEY")
 
-# 📍 MISSION COORDINATES (T-Mall Underpass / Mbagathi Sump)
-SARAH_LAT, SARAH_LON = -1.3148, 36.8115
-ZOOM = 17 
-SIZE = "640x640"
-
-def fetch_basemap(lat, lon, zoom=16, size="640x640", filename="mbagathi_basemap.png"):
-    """
-    Fetches a satellite tile for specific coordinates.
-    TPM Note: Defaulting to 16 zoom and 640px for consistency across the project.
-    """
-    print(f"🛰️ Requesting satellite tile for coords: {lat}, {lon}...")
+def fetch_basemap(lat, lon, filename):
+    """Fetches high-resolution satellite tile for Mbagathi Basin."""
+    if not API_KEY:
+        raise ValueError("❌ Missing GOOGLE_MAPS_API_KEY. Check your .env file!")
+        
+    print(f"🛰️ Requesting terrain tile: {lat}, {lon}...")
     
     url = (
         f"https://maps.googleapis.com/maps/api/staticmap?"
-        f"center={lat},{lon}&zoom={zoom}&size={size}"
+        f"center={lat},{lon}&zoom=17&size=640x640"
         f"&maptype=satellite&key={API_KEY}"
     )
     
-    try:
-        response = requests.get(url)
-        response.raise_for_status() # TPM Best Practice: Catch HTTP errors early
-        
-        img = Image.open(BytesIO(response.content))
-        
-        # Ensure we save in the correct directory (Level 1)
-        script_dir = os.path.dirname(os.path.abspath(__file__))
-        save_path = os.path.join(script_dir, filename)
-        
-        img.save(save_path)
-        print(f"✓ Basemap saved: {filename}")
-        return img
-        
-    except Exception as e:
-        print(f"❌ Error fetching map: {e}")
-        return None
+    response = requests.get(url)
+    response.raise_for_status()
+    
+    img = Image.open(BytesIO(response.content))
+    img.save(filename)
+    return img
 
+def overlay_agent_icon(basemap, agent_name, output_filename):
+    """Stamps the responder identity icon onto the terrain map."""
+    icon_path = os.path.join(ASSETS_DIR, f"{agent_name}_icon.png")
     
-def overlay_agent_icon(basemap, agent_name="sarah"):
-    # 1. Get the directory where THIS script is (levels/level_1)
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    
-    # 2. Go UP one level to reach the 'levels' folder
-    levels_parent_dir = os.path.dirname(script_dir)
-    
-    # 3. Construct path directly into level_0/assets/maps/
-    # Path becomes: levels/level_0/assets/maps/sarah_icon.png
-    icon_path = os.path.join(levels_parent_dir, "level_0", "assets", "maps", f"{agent_name}_icon.png")
-    
-    print(f"🔍 Searching for icon at: {icon_path}")
-
     if not os.path.exists(icon_path):
-        print(f"❌ Still missing! System tried to find it here: {icon_path}")
-        # Final Debug: Let's see what is actually in that folder
-        if os.path.exists(levels_parent_dir):
-            print(f"📂 Folders found inside 'levels': {os.listdir(levels_parent_dir)}")
+        print(f"❌ Missing asset: {icon_path}")
         return
 
-    # 4. Success - Process the image
-    icon = Image.open(icon_path).convert("RGBA")
-    icon = icon.resize((64, 64)) 
-
-    # Stamp Sarah at the center (320-32 = 288)
-    pos = (288, 288)
-    basemap.paste(icon, pos, icon)
+    icon = Image.open(icon_path).convert("RGBA").resize((64, 64))
     
-    # Save the output in the level_1 folder
-    output_path = os.path.join(script_dir, f"{agent_name}_on_mission.png")
-    basemap.save(output_path)
-    print(f"🚀 SUCCESS! Mission Map Ready: {output_path}")
+    # Overlay at center (288, 288)
+    basemap.paste(icon, (288, 288), icon)
+    basemap.save(output_filename)
+    print(f"✅ Mission Map Ready: {output_filename}")
 
-            
 if __name__ == "__main__":
-    print("\n🌊 FLOODPULSE: TACTICAL SPREAD DEPLOYMENT...")
-    print("-------------------------------------------")
-
-    # 1. Define the Trinity's unique coordinates
-    locations = {
-        "sarah": {"lat": -1.3148, "lon": 36.8115}, # Sump
-        "juma":  {"lat": -1.3165, "lon": 36.8135}, # Arterial
-        "kamau": {"lat": -1.3110, "lon": 36.8185}  # Ridge
+    print("\n🌊 FLOODPULSE: TERRAIN DISCOVERY MODE...")
+    
+    # Responder Locations
+    responder_locations = {
+        "sarah": {"lat": -1.3148, "lon": 36.8115},
+        "juma": {"lat": -1.3165, "lon": 36.8135},
+        "kamau": {"lat": -1.3110, "lon": 36.8185}
     }
 
-    # 2. Iterate and Generate
-    for agent, coords in locations.items():
-        print(f"📡 Sector Update: Fetching terrain for {agent.upper()}...")
-        
-        # Fetch a UNIQUE basemap for each agent's specific location
-        # Filename is mission-specific so we don't overwrite the master
-        agent_tile = fetch_basemap(
-            coords['lat'], 
-            coords['lon'], 
-            filename=f"{agent}_basemap_tile.png"
-        )
-
-        if agent_tile:
-            overlay_agent_icon(agent_tile, agent_name=agent)
-        else:
-            print(f"⚠️ Warning: Could not establish visual for {agent.upper()}")
+    # Automatically discover available icons
+    available_icons = [f.replace("_icon.png", "") for f in os.listdir(ASSETS_DIR) if f.endswith("_icon.png")]
+    
+    if not available_icons:
+        print("❌ No responder icons found in level_0/outputs/. Run 'create_identity.py' first.")
+    else:
+        for agent in available_icons:
+            coords = responder_locations.get(agent, {"lat": -1.3120, "lon": 36.8150})
+            print(f"📡 Sector Sync: {agent.upper()}...")
+            
+            # Paths to new organized subdirectories
+            tile_path = os.path.join(BASEMAPS_DIR, f"{agent}_basemap.png")
+            map_path = os.path.join(MAPS_DIR, f"{agent}_mission_map.png")
+            
+            # Fetch & Overlay
+            basemap = fetch_basemap(coords['lat'], coords['lon'], tile_path)
+            overlay_agent_icon(basemap, agent, map_path)
 
     print("-------------------------------------------")
-    print("✅ TACTICAL SPREAD COMPLETE. 3 unique sectors established.")
+    print("🚀 Terrain discovery complete. Vision.mcp is ready to scan.")

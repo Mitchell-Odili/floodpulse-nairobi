@@ -22,5 +22,9 @@ requirements.txt
 config.json
 
 # FloodPulse AI Outputs
+
+# Ignore Level 0 outputs
 levels/level_0/outputs/
-levels/level_1/*.png
+
+# Ignore Level 1 assets (both basemaps and maps)
+levels/level_1/assets/
