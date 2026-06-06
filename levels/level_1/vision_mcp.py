@@ -14,13 +14,14 @@ import sys
 logging.basicConfig(level=logging.INFO, stream=sys.stderr)
 logger = logging.getLogger("FloodPulse-Vision")
 
-# --- PATH SHIELD ---
-# Sets PROJECT_ROOT to the root directory regardless of where this file is run
-PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+## --- PATH SHIELD ---
+# Get the directory of this file (levels/level_1/)
+script_dir = os.path.dirname(os.path.abspath(__file__))
+# Move up TWO levels to get to the project root (D:\Repos\floodpulse-nairobi\)
+PROJECT_ROOT = os.path.dirname(os.path.dirname(script_dir))
 sys.path.append(PROJECT_ROOT)
 
 # --- ENVIRONMENT LOADING ---
-# Load from root, forcing overwrite of system variables to ensure local .env takes priority
 dotenv_path = os.path.join(PROJECT_ROOT, ".env")
 load_dotenv(dotenv_path=dotenv_path, override=True)
 
