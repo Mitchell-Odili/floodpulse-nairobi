@@ -2,32 +2,61 @@
 
 **Offline-First Multi-Agent Resilience for the Mbagathi Basin**
 
-Project Lead: Mitchell Odili
+**Mission:** FloodPulse is an autonomous agentic pipeline designed to navigate the Mbagathi Basin during infrastructure failure. We are building the bridge between AI that assists and AI that acts, ensuring Nairobi's residents have a Digital Guardian when the grid goes dark.
 
-Experimenting with Gemini 3.5 and WebMCP.
+---
+## 🏗 System Architecture: The "Studio" Pattern
 
-**Status:** ✅ Level 3 Complete | 🌊 Level 4 Coordination Starting
+We have transitioned from a multi-level sequential model to a unified Agentic Studio architecture.
+- **Level 0 (The Gallery):** A persistent registry for personas (Sarah, Juma, Kamau) and finalized mission assets.
+- **Level 1 (The Studio):** The core Agentic Synthesis engine. It orchestrates specialized sub-agents (Vision Analyst, Weather Gatherer, Asset Generator) to synthesize mission-critical data in real-time.
+- **Level 2 (Graph Orchestration)**: Google Cloud Spanner backbone for persistent node-based navigation.
 
-**Mission:** Validating "Digital Guardian" protocols for urban flood resilience using multimodal LLMs and geospatial agent orchestration.
+---
+  
+### 📊 Evolutionary Roadmap
+| Phase | Milestone | Status |
+|-------------|--------|--------------|
+| **Level 0** | Identity Factory: Parametric persona generation| ✅ Done |
+| **Level 1** | The Studio: Agentic Synthesis & Telemetry Integration | 🟡 Ongoing |
+| **Level 2** | Graph Orchestration: Spanner/GQL Navigation | ✅ Done |
+| **Edge** | Android 17 Parity: Local Gemma 4 inference | 🔜 Planned |
 
 ---
 
-## 🚨 1. The Problem: The "Data Darkness" Gap
+## 🛠 Technical Specifications: The Studio (Level 1)
 
-During the March 2026 rains in Nairobi, flash floods turned arterial roads (like Lang'ata and Mbagathi) into death traps within minutes.
-- The Gap: Existing navigation tools (Google Maps/Waze) rely on active internet and crowdsourced data. When the grid fails, the data stops.
-- The Impact: Residents lack the "Local Truth" needed to find safe ridges and avoid submerged underpasses, leading to preventable loss of life.
-- The Reality: In a crisis, the map is often the first thing to go dark. 
+The `FloodPulseStudio` orchestrator manages the entire lifecycle of a mission request, moving beyond simple scripts to a formal Artifact Promotion Pipeline:
 
-## 🛡️ 2. The Solution: Multimodal Edge Resilience
+- **FR1 (Asset Synthesis):** The orchestrator synthesizes mission-specific maps upon request using Gemini 2.5/3.5 Flash.
+- **FR2 (Telemetry-Aware Synthesis):** Fuses real-time environmental telemetry (Weather) and terrain data (Vision) into a unified risk assessment.
+- **FR3 (Artifact Promotion):** Automated pipeline moves validated assets from `/level_0/outputs` to the public `/level_1/assets` registry.
+- **FR4 (Memory Injection):** Contextual injection of persona metadata into callback_context to ensure "Persona-Aware" agents.
+- **FR5 (Interaction):** Interactive root agent discovery phase to determine mission parameters.
+- **FR6 (Idempotency):** Check-before-create logic ensures cost-efficient LLM utilization.
 
-FloodPulse is an offline-first, multimodal resilience assistant. It uses the phone's native hardware to "see" and "reason" about flood risks without needing a cloud connection.
-- Vision: A "Digital Guardian" for the Global South that works when the world goes dark.
-- Validation: A Modular Agentic Simulation modeling the Mbagathi River basin to validate multi-agent consensus in high-risk scenarios.
+---
+## 🧬 Identity & Asset Pipeline (Level 0)
+Using **Gemini 3.1 Flash Image (Nano Banana 2)**, we generate consistent cultural markers (e.g., Kenyan-specific beaded bracelets) that persist across portraits and map icons.
+
+- **Orchestrator:** `create_identity.py` (Orchestrator/Worker pattern).
+- **Output:** Consistent visual assets stored in `level_0/outputs/.`
 
 ---
 
-## 🧪 3. Technical Feasibility (Mbagathi Basin)
+## 🕸️ Graph Orchestration & Resilience (Level 2)
+The system leverages `Google Cloud Spanner` to maintain a live graph of the "Trinity."
+
+- **Relational Intelligence:** `FloodResilienceGraph` maps emergency lifelines between residents and responders.
+- **Architectural Resilience:** Implements **Dual-Redundancy DDL**. The system prioritizes local `schema.sql` files but maintains an Internal Hardcoded DDL backup to ensure the database "Brain" can be reconstituted anywhere, even in disconnected environments.
+---
+## 🎯 Technical Validation: "The Mbagathi Truth"
+
+- **Baseline:** Validated spatial reasoning for topographical analysis (`Gemma 4 (31B)` , `Gemini-2.5-Flash`).
+- **Graph Verification:** Confirmed directed pathing from Sarah (Resident) at high-risk sump coordinates to Juma (Responder).
+**Data Pivot:** Optimized location data using WKT String format for cross-platform compatibility.
+ 
+### Gemma 4 
 We conducted a zero-shot analysis using **Gemma 4 (31B)** on high-resolution satellite imagery to validate core spatial reasoning.
 
 ### **Key Findings:**
@@ -41,73 +70,14 @@ We conducted a zero-shot analysis using **Gemma 4 (31B)** on high-resolution sat
 > **Status:** ✅ Feasibility Confirmed. The model demonstrates the required spatial intuition for urban flood navigation.
 
 ---
-  
-## 🧬 4. Level 0: Identity Orchestration (The Trinity)
-
-To simulate Nairobi's flood dynamics, we've architected a **Parametric Persona Engine.** This ensures that our agents—the Stranded Commuter, the Local/Boda Responder, and the Urban Strategist—have consistent identities.
-
-**Technical Implementation:**
-- Orchestrator (`create_identity.py`): The "Brain." Manages batch generation, directory routing, and **Credit Saver** logic for cost-efficient, idempotent runs.
-
-- Worker (`generator.py`): The "Muscle." Leverages **Gemini 2.5 Flash** chat sessions to maintain **Visual Identity Consistency** (e.g., ensuring a specific Kenyan flag beaded bracelet carries from portraits to map icons).
-
-- Asset Pipeline: Automated promotion of AI outputs to production directories: `/assets/avatars/` and `/assets/maps/`.
-
----
-
-## 🎮 5. The Development Journey
-This project follows a structured, simulation-based progression to move from conceptual identity to a fully orchestrated multi-agent rescue system. Each level builds a critical technical dependency for the next.
-
-| Level | Mission | Technical Dependency | Tech Stack |
-|-------|---------|----------------------|------------|
-| **Level 0** | **Identity & Baseline** | **Orchestration:** Established the "Trinity" of user personas ( Commuter, Responder, Strategist) and the base geospatial asset pipeline. | Orchestrator/Worker Pattern, Vertex AI, Gemini 2.5 Flash, PIL |
-| **Level 1** | **Terrain Pinpointing** | **Infrastructure:** Implemented Model Context Protocol (MCP) for real-time vision analysis of the Mbagathi basin. | **MCP**, Gemini 2.5 Flash, Google Static Maps |
-| **Level 2** | **The Pulse (SOS)** | **Ingest:** Capturing live telemetry (SOS "Pulses") and OpenWeather data to create dynamic environment risk. | Event-driven agents, OpenWeather API, A2A communication |
-| **Level 3** | **Graph Orchestration** | **Compute:** Mapping the Trinity as live nodes. Calculated dynamic "Safe Edges" via GQL traversal and WKT location strings. | Cloud Spanner Graph (GQL), Google Cloud, Python |
-| **Level 4** | **Coordinate group rescue** | **Orchestration:** Multi-agent coordination to prevent traffic bottlenecks on "Safe Ridges" during mass evacuation events. | Agent orchestration, consensus protocols |
-
----
-
-## 🛠️ 6. Technical Stack: The Path to Production
+## 🛠️ The Tech Stack: The Path to Production
 We leverage a hybrid stack that moves from rapid AI prototyping to high-scale cloud infrastructure.
 
 | Environment | Purpose | Core Technologies |
 |-------------|---------|-------------------|
 | **AI Studio** | **Prototyping** | Gemma 4 31B (Multimodal Reasoning) |
-| **Vertex AI** | **Orchestration** | Gemini 2.5 Flash (Multimodal Persona Consistency) |
+| **Vertex AI** | **Orchestration** | Gemini 2.5/3.5 Flash (Agentic Loops & Reasoning), Gemini 3.1 Flash Image (Visual Asset Generation) |
 | **Kaggle** | **Data Engineering** | Geospatial Notebooks, NASA SRTM Datasets | 
 | **GitHub** | **Source & CI/CD** | Python, Model Context Protocol (MCP) and FastMCP |
 | **Google Cloud** | **Production Scale** | Cloud Spanner Graph(Live/Seeded), FastAPI, Cloud Run, WKT (Well-Known Text) Spatial Modeling |
-
-🛡️ Infrastructure Resilience
-
-To ensure the "Digital Guardian" survives unstable environments, Level 3 implemented a **Dual-Redundancy DDL** pattern. The system features a self-healing initialization logic that prioritizes local schema files but maintains a hardcoded DDL backup, ensuring the Mbagathi Property Graph can be reconstituted anywhere, anytime.
-
 ---
-
-## 🛰️ 7. Technical Deep Dive: The "Hidden River" Problem
-
-Standard maps often fail in Nairobi because the Mbagathi River is obscured by urban canopy and informal settlements. **FloodPulse** solves this through a "Multi-Sensor Fusion" approach:
-
-- **Multimodal Spatial Reasoning:** AI analyzes soil moisture (spectral darks) to "see" the true path.
-- **Multi-Sector Tactical Spread:** Automated generation of Zoom-17 mission tiles for distinct topographical zones (Sump, Arterial, Ridge) to ensure high-definition context for local AI reasoning.
-- **NASA SRTM Integration:** Mathematical validation of elevation for every "Safe Ridge."
-- **SAR (Synthetic Aperture Radar) Capability:** Integrating Sentinel-1 SAR to detect standing water through cloud cover in real-time.
-
----
-  
-## 🎯 8. Success Metric
-
-- Inference Speed: < 2 seconds for local image-to-risk analysis.
-- Offline Parity: 100% of core safety features must work in Airplane Mode.
-- Validation: 90% alignment between AI-predicted flood zones and UNOSAT post-disaster maps.
-
----
-
-## 📍 9. Initial Deployment Nodes
-
-| Agent | Landmark | Coordinates | Risk profile |
-|-------|----------|-------------|------|
-| **Sarah - Stranded Commuter** | T-Mall Underpass | `-1.3148, 36.8115` | Hydrological Low Point |
-| **Juma - Local/Boda Responder** | Lang'ata Arterial | `-1.3165, 36.8135` | Infrastructure Bottleneck | 
-| **Kamau - Urban Strategist** | Madaraka Ridge | `-1.3110, 36.8185` | Strategic High Ground | 
