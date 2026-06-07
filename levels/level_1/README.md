@@ -1,31 +1,56 @@
-## 🛰️ Level 1: Terrain Discovery & Pinpointing
-**Mission Overview**
-Level 1 transitions FloodPulse from persona archetypes to geospatial reality. Using the "Trinity" identities established in Level 0, we perform zero-shot visual analysis of the **Mbagathi River Basin** to identify critical flood sumps and safe ridges.
+# FloodPulse Nairobi: Studio Engine
+FloodPulse Nairobi is an autonomous agentic synthesis engine designed for real-time flood risk assessment in the Mbagathi River Basin. Moving beyond linear scripts, the system employs a "Studio Architecture" that orchestrates specialized AI agents to perceive, reason, and act within dynamic geospatial environments.
 
-**Core Objectives**
-- **Geospatial Anchoring:** Fetching high-resolution satellite imagery via Google Static Maps API.
-- **Multi-Agent Visualization:** Dynamically overlaying agent sprites onto real-world coordinates (T-Mall, Lang'ata Road).
-- **Offline-First Strategy:** Implementing local image caching to ensure the "Digital Guardian" remains functional during infrastructure blackouts.
+## 🏗️ Studio Architecture
+The system is built on an **Agentic Interaction Loop:**
+1. **Perception:** Parallel telemetry gathering via satellite vision and environmental weather sensors.
+2. **Reasoning:** A Director agent synthesizes multi-sensor data into safety directives.
+3. **Action:** Dynamic mapping and risk-overlay generation.
+4. **Persistence:** Idempotent state management via a central registry.
 
----
+**View the full architecture:** [Read the Studio Specification](spec.md)
 
-**🛠️ Technical Components**
-1. `static_mapper.py`
-- **Logic:** Implemented a **Multi-Sector Perception** loop. Instead of a single map, it fetches unique Zoom 17 satellite tiles for each agent to provide maximum visual context for the AI.
-- **Optimization:** Uses `.copy()` logic for memory efficiency and ensures Idempotency in asset generation.
+## 🚀 Technical Stack
+- **Intelligence:** Google Gemini 2.5/3.5 Flash via `google-genai` SDK.
+- **Orchestration:** Multi-agent delegation with parallel thread execution.
+- **Geospatial:** Google Static Maps API with dynamic icon layering.
+- **Telemetry:** OpenWeather API for real-time environmental risk indexing.
+- **State Management:** Local `registry.json` for task idempotency and offline-resilient operations.
 
-2. `vision_mcp.py` 
-- **Protocol:** A production-grade **Model Context Protocol** server.
-- **Intelligence:** Integrated with Gemini 2.5 Flash (via the modern `google-genai` SDK) to perform real-time pixel analysis.
-- **Functionality:** Exposes the `analyze_mbagathi_risk` tool, which performs **Multi-Sensor Fusion**. It cross-references static **Terrain Mapping** (identifying riparian sumps/ridges) with **Live Weather Telemetry** (Flash Index 0.0-1.0) to provide real-time, high-fidelity safety directives for the Mbagathi Basin.
+## 📂 Project Structure
+``` Plaintext
+floodpulse-nairobi/
+├── data/               # Persistent mission registry
+├── levels/
+│   └── level_1/
+│       ├── agents/     # Orchestrator & Studio Logic
+│       ├── tools/      # Spatial (map) & Weather tools
+│       └── assets/     # Level-specific basemaps, maps, and icons
+├── utils/              # State management & utility helpers
+├── config.json         # Centralized application settings
+├── config.py           # Model and API configurations
+├── pyproject.toml      # Dependency management & project metadata
+└── uv.lock             # Deterministic dependency lockfile
+```
 
----
-| **Asset Library** | `/assets/` | Production-ready storage for `avatars/` and `maps/` sprites. |
+## 🛠️ Key Features
+- **Parallel Execution:** Orchestrator triggers Weather and Vision agents simultaneously, reducing mission latency.
+- **Idempotency:** Automated path verification and registry checks prevent redundant API calls.
+- **Studio Loop:** A centralized `FloodPulseStudio` class handles the lifecycle of every request, ensuring consistent persona and context maintenance.
 
-**📍 Initial Deployment Nodes**
+## 📍 Deployment Nodes
+The system currently manages the "Trinity" nodes in the Mbagathi Basin:
+- **Sarah:** T-Mall Underpass (The Sump Observer)
+- **Juma:** Lang'ata/ICC (The Arterial Responder)
+- **Kamau:** Madaraka/Highview (The Ridge Strategist)
 
-| Agent | Landmark | Coordinates | Role |
-|-------|----------|-------------|------|
-| **Sarah** | T-Mall Underpass | `-1.3148, 36.8115` | The "Sump" Observer |
-| **Juma** | Lang'ata/ICC | `-1.3165, 36.8135` | The Arterial Responder | 
-| **Kamau** | Madaraka/Highview | `-1.3110, 36.8185` | The Ridge Strategist | 
+## ⚙️ Setup & Configuration
+1. **Environment Variables:** Create a `.env file` in the project root and populate the following keys:
+- `Maps_API_KEY:` Your Google Static Maps API key.
+- `OPENWEATHER_API_KEY:` Your OpenWeather API key.
+- `GEMINI_API_KEY:` Your Google GenAI API key.
+2. **Install Dependencies:** Ensure all requirements are met from your virtual environment.
+3. **Initialize:** Instantiate the FloodPulseStudio via orchestrator.py.
+4. **Execute:** Run missions using the run_mission(user_input, responder_name) entry point.
+
+*Developed for Mbagathi Basin Flood Resilience | Level 1: Terrain Discovery & Pinpointing*
