@@ -11,7 +11,7 @@ The system is built on an **Agentic Interaction Loop:**
 **View the full architecture:** [Read the Studio Specification](spec.md)
 
 ## 🚀 Technical Stack
-- **Intelligence:** Google Gemini 2.5/3.5 Flash via `google-genai` SDK.
+- **Intelligence:** Google `Gemini 2.5 Flash`/`Gemini 3.5 Flash` via `google-genai` SDK.
 - **Orchestration:** Multi-agent delegation with parallel thread execution.
 - **Geospatial:** Google Static Maps API with dynamic icon layering.
 - **Telemetry:** OpenWeather API for real-time environmental risk indexing.
