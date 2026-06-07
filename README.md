@@ -18,8 +18,8 @@ We have transitioned from a multi-level sequential model to a unified Agentic St
 | Phase | Milestone | Status |
 |-------------|--------|--------------|
 | **Level 0** | Identity Factory: Parametric persona generation| ✅ Done |
-| **Level 1** | The Studio: Agentic Synthesis & Telemetry Integration | 🟡 Ongoing |
-| **Level 2** | Graph Orchestration: Spanner/GQL Navigation | ✅ Done |
+| **Level 1** | The Studio: Agentic Synthesis & Telemetry Integration | ✅ Done |
+| **Level 2** | Graph Orchestration: Spanner/GQL Navigation | 🟡 Ongoing |
 | **Edge** | Android 17 Parity: Local Gemma 4 inference | 🔜 Planned |
 
 ---
