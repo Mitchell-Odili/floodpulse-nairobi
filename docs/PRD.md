@@ -23,7 +23,7 @@ FloodPulse utilizes a Modular Agentic Simulation pattern, evolving from static i
 | **Level 0** | Identity Factory: Parametric persona generation| ✅ Done |
 | **Sandbox** | MCP Lab: Secure Vision/Tool Diagnostics | ✅ Done |
 | **Level 1** | The Studio: Agentic Synthesis & Telemetry Integration | ✅ Done |
-| **Level 2** | Graph Orchestration: Spanner/GQL Navigation | ✅ Done |
+| **Level 2** | Graph Orchestration: Spanner/GQL Navigation | 🟡 Ongoing |
 | **Edge** | Android 17 Parity: Local Gemma 4 inference | 🔜 Planned |
 
 ## 4. Technical Specifications
