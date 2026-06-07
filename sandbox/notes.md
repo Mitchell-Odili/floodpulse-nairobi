@@ -46,4 +46,4 @@ We maintain two distinct paths for MCP experimentation to balance security with 
 - **Validation:** All successful verification screenshots in this repository were captured from a local development environment.
 
 ## 🧪 Inspector Results Evidence
-[analyze_mbagathi_risk output](docs/mcp_inspector_test)
+![analyze_mbagathi_risk output](../../docs/mcp_inspector_test.png)
