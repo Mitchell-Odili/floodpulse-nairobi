@@ -16,15 +16,17 @@ We have transitioned from a multi-level sequential model to a unified Agentic St
 ---
 ## 📂 Project Structure
 
-```floodpulse-nairobi/
+``` Plaintext
+floodpulse-nairobi/
 ├── data/               # Persistent mission registry
+├── docs/               # Architecture visuals, PRDs, & design docs
 ├── levels/
 │   ├── level_0/        # The Gallery: Identity & Asset Seeds
 │   ├── level_1/        # The Studio: Agentic Synthesis
 │   └── level_2/        # Graph Orchestration: Spanner/GQL
 ├── utils/              # State management & utilities
 ├── config.json         # Global application settings
-├── config.py           # Configuration handler & validation logic
+├── config.py           # Configuration handler & validation
 ├── pyproject.toml      # Dependency management (uv)
 └── uv.lock             # Deterministic lockfile
 ```
