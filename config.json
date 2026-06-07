@@ -1,9 +1,0 @@
-{
-  "event_code": "NBO-MBAGATHI-2026",
-  "project_id": "floodpulse-nairobi",
-  "api_base": "https://api.floodpulse.nbo",
-  "default_coords": {
-    "lat": -1.3211,
-    "lng": 36.8041
-  }
-}
