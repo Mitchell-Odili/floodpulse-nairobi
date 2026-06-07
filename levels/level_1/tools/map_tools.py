@@ -5,7 +5,7 @@ from io import BytesIO
 from pathlib import Path
 
 # Pathing setup
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
+PROJECT_ROOT = Path(__file__).resolve().parents[3]
 BASEMAPS_DIR = PROJECT_ROOT / "levels" / "level_1" / "assets" / "basemaps"
 MAPS_DIR = PROJECT_ROOT / "levels" / "level_1" / "assets" / "maps"
 ICONS_DIR = PROJECT_ROOT / "levels" / "level_0" / "outputs"
