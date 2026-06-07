@@ -11,8 +11,8 @@
 
 We have transitioned from a multi-level sequential model to a unified Agentic Studio architecture.
 - **The Gallery (Level 0):** A persistent registry for personas (Sarah, Juma, Kamau) and finalized mission assets.
-- **The Studio (Level 1 ):** The core Agentic Synthesis engine. It orchestrates specialized sub-agents (Vision Analyst, Weather Gatherer, Asset Generator) to synthesize mission-critical data.
 - **The Sandbox:** Our experimental laboratory. This is where we stress-test new MCP tool-calling logic and authenticate secure connections via Application Default Credentials (ADC) before they graduate to the Studio.
+- **The Studio (Level 1 ):** The core Agentic Synthesis engine. It orchestrates specialized sub-agents (Vision Analyst, Weather Gatherer, Asset Generator) to synthesize mission-critical data.
 - **Graph Orchestration (Level 2)**: Google Cloud Spanner backbone for persistent node-based navigation.
 ---
 ## 📂 Project Structure
@@ -38,8 +38,8 @@ floodpulse-nairobi/
 | Phase | Milestone | Status |
 |-------------|--------|--------------|
 | **Level 0** | Identity Factory: Parametric persona generation| ✅ Done |
-| **Level 1** | The Studio: Agentic Synthesis & Telemetry Integration | ✅ Done |
 | **Sandbox** | MCP Lab: Secure Vision/Tool Diagnostics | ✅ Done | 
+| **Level 1** | The Studio: Agentic Synthesis & Telemetry Integration | ✅ Done |
 | **Level 2** | Graph Orchestration: Spanner/GQL Navigation | 🟡 Ongoing |
 | **Edge** | Android 17 Parity: Local Gemma 4 inference | 🔜 Planned |
 ---
