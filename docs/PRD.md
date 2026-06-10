@@ -68,4 +68,4 @@ FloodPulse utilizes a Modular Agentic Simulation pattern, evolving from static i
 - **Safe Ridge Logic:** The model autonomously identifies high-ground zones based on spectral terrain analysis (elevation vs. drainage).
 - **Graph Verification:** Confirmed directed pathing from Sarah (Resident) at high-risk sump coordinates to Juma (Responder).
 
-Note: The system architecture visualization is now tracked in ![FloodPulse Studio Workflow](./level_1_workflow_viz.png)
+Note: The system architecture visualization is now tracked below ![FloodPulse Studio Workflow](./level_1_workflow_viz.png)
