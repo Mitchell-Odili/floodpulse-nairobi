@@ -35,7 +35,7 @@ The system is built on an **Agentic Interaction Loop:**
 floodpulse-nairobi/
 ├── docs/               # Architecture visuals, PRDs, and lab reports
 ├── levels/             # Core Engine
-│   └── level_1/        # Orchestrator & Studio Logic
+│   └── level_1/        # Sequential Orchestrator & Studio Logic
 ├── sandbox/            # Experimental MCP rigs & diagnostic lab
 ├── tools/              # Shared spatial (map) & weather tools
 ├── utils/              # State management & utility helpers

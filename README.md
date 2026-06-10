@@ -26,7 +26,7 @@ floodpulse-nairobi/
 ├── docs/               # Architecture visuals, PRDs, & lab reports
 ├── levels/
 │   ├── level_0/        # The Gallery: Identity & Asset Seeds
-│   ├── level_1/        # The Studio: Agentic Synthesis
+│   ├── level_1/        # The Studio: ADK Sequential Orchestration
 │   └── level_2/        # Graph Orchestration: Spanner/GQL
 ├── sandbox/            # Experimental MCP rigs & diagnostic lab
 ├── tools/              # Shared spatial (map) & weather tools
