@@ -1,17 +1,44 @@
+import asyncio
 import os
-from pathlib import Path
 from dotenv import load_dotenv
+from google.adk.runners import Runner
+from google.adk.sessions import InMemorySessionService
+from google.genai import types
+from levels.level_1.agents.orchestrator import floodpulse_director
 
-# 1. Reliable Pathing: Resolve the root relative to this file
-# This works regardless of where you call the script from
-PROJECT_ROOT = Path(__file__).resolve().parent
-load_dotenv(dotenv_path=PROJECT_ROOT / ".env")
+load_dotenv()
 
-# 2. Now imports will work cleanly because PROJECT_ROOT is in sys.path
-from levels.level_1.agents.orchestrator import run_mission
+async def run_mission():
+    session_service = InMemorySessionService()
+    
+    await session_service.create_session(
+        app_name="floodpulse_app",
+        user_id="user_01",
+        session_id="session_01"
+    )
+    
+    runner = Runner(
+        app_name="floodpulse_app",
+        agent=floodpulse_director,
+        session_service=session_service
+    )
+
+    user_message = types.Content(
+        role="user",
+        parts=[types.Part.from_text(text="Juma at -1.3165, 36.8135 needs an assessment.")]
+    )
+
+    print("--- Starting Mission ---")
+    # Change 'async for' to 'for' because the runner returns a synchronous generator
+    for update in runner.run(
+        session_id="session_01",
+        user_id="user_01",
+        new_message=user_message
+    ):
+        print(update)
+    print("--- Mission Complete ---")
 
 if __name__ == "__main__":
-    # Test your mission logic
     print("🚀 FloodPulse Mission Control Online")
-    result = run_mission("juma", -1.3165, 36.8135)
-    print(result)
+    # Start the async event loop
+    asyncio.run(run_mission())

@@ -12,14 +12,17 @@
 We have transitioned from a multi-level sequential model to a unified Agentic Studio architecture.
 - **The Gallery (Level 0):** A persistent registry for personas (Sarah, Juma, Kamau) and finalized mission assets.
 - **The Sandbox:** Our experimental laboratory. This is where we stress-test new MCP tool-calling logic and authenticate secure connections via Application Default Credentials (ADC) before they graduate to the Studio.
-- **The Studio (Level 1 ):** The core Agentic Synthesis engine. It orchestrates specialized sub-agents (Vision Analyst, Weather Gatherer, Asset Generator) to synthesize mission-critical data.
+- **The Studio (Level 1 ):** The core Agentic Synthesis engine. It utilizes the **Google Agent Development Kit (ADK)** to orchestrate specialized sub-agents (Weather Gatherer, Vision Analyst) through a sequential delegation loop, ensuring atomic state management and session-scoped reliability.
 - **Graph Orchestration (Level 2)**: Google Cloud Spanner backbone for persistent node-based navigation.
+
+Visualizing the Workflow: See how the Director manages the Sequential Agentic Loop in our Level 1 Architecture Viz.
+![FloodPulse Studio Workflow](docs/level_1_workflow_viz.png)
+
 ---
 ## 📂 Project Structure
 
 ``` Plaintext
 floodpulse-nairobi/
-├── data/               # Persistent mission registry
 ├── docs/               # Architecture visuals, PRDs, & lab reports
 ├── levels/
 │   ├── level_0/        # The Gallery: Identity & Asset Seeds
@@ -70,6 +73,6 @@ We leverage a hybrid stack that moves from rapid AI prototyping to high-scale cl
 |-------------|---------|-------------------|
 | **AI Studio** | **Prototyping** | Gemma 4 31B (Multimodal Reasoning) |
 | **Sandbox** | **MCP Validation** | FastMCP, Inspector, ADC Authentication |
-| **Vertex AI** | **Orchestration** | Gemini 2.5/3.5 Flash (Agentic Loops & Reasoning), Gemini 3.1 Flash Image (Visual Asset Generation) |
+| **Vertex AI** | **Orchestration** | **Google ADK (SequentialAgent)**, Gemini 2.5/3.5 Flash, Gemini 3.1 Flash Image (Visual Asset Generation) |
 | **Google Cloud** | **Production Scale** | Cloud Spanner Graph(Live/Seeded), FastAPI, Cloud Run, WKT (Well-Known Text) Spatial Modeling |
 ---
