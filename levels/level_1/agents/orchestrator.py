@@ -1,9 +1,9 @@
 import concurrent.futures
 from config import MODELS
 from google.adk.agents import Agent
-from .sub_agents.weather_agent import weather_gatherer
-from .sub_agents.vision_agent import vision_analyst
-from .sub_agents.responder_agent import responder_agent
+from levels.level_1.agents.sub_agents.weather_agent import weather_gatherer
+from levels.level_1.agents.sub_agents.vision_agent import vision_analyst
+from levels.level_1.agents.sub_agents.responder_agent import responder_agent
 from utils.state_manager import update_registry, load_registry
 
 # 1. Define the Orchestrator Agent (The Director)
