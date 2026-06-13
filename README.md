@@ -13,9 +13,12 @@ We have transitioned from a multi-level sequential model to a unified Agentic St
 - **The Gallery (Level 0):** A persistent registry for personas (Sarah, Juma, Kamau) and finalized mission assets.
 - **The Sandbox:** Our experimental laboratory. This is where we stress-test new MCP tool-calling logic and authenticate secure connections via Application Default Credentials (ADC) before they graduate to the Studio.
 - **The Studio (Level 1 ):** The core Agentic Synthesis engine. It utilizes the **Google Agent Development Kit (ADK)** to orchestrate specialized sub-agents (Weather Gatherer, Vision Analyst) through a sequential delegation loop, ensuring atomic state management and session-scoped reliability.
-  - **Visualizing the Workflow:** See how the Director manages the Sequential Agentic Loop in our Level 1 Architecture Viz.
-![FloodPulse Studio Workflow](docs/level_1_workflow_viz.png)
 - **Graph Orchestration (Level 2)**: Google Cloud Spanner backbone for persistent node-based navigation.
+
+### Visualizing the Workflow:
+See how the Director manages the Sequential Agentic Loop in our Level 1 Architecture Viz.
+![FloodPulse Studio Workflow](docs/level_1_workflow_viz.png)
+
   
 
 ---
