@@ -16,7 +16,7 @@ We have transitioned from a multi-level sequential model to a unified Agentic St
 - **Graph Orchestration (Level 2)**: Google Cloud Spanner backbone for persistent node-based navigation.
 
 ### Visualizing the Workflow:
-See how the Director manages the Sequential Agentic Loop in our Level 1 Architecture Viz.
+See how the Director manages the Sequential Agentic Loop in our Level 1 Architecture Visualization.
 ![FloodPulse Studio Workflow](docs/level_1_workflow_viz.png)
 
   
