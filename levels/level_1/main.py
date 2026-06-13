@@ -4,9 +4,17 @@ from dotenv import load_dotenv
 from google.adk.runners import Runner
 from google.adk.sessions import InMemorySessionService
 from google.genai import types
+from google.genai import Client
 from levels.level_1.agents.orchestrator import floodpulse_director
 
 load_dotenv()
+
+# Initialize the client using the .env variables
+client = Client(
+    vertexai=os.getenv("USE_VERTEX_AI") == "true",
+    project=os.getenv("PROJECT_ID"),
+    location=os.getenv("LOCATION")
+)
 
 async def run_mission():
     session_service = InMemorySessionService()
@@ -20,7 +28,7 @@ async def run_mission():
     runner = Runner(
         app_name="floodpulse_app",
         agent=floodpulse_director,
-        session_service=session_service
+        session_service=session_service,
     )
 
     user_message = types.Content(
