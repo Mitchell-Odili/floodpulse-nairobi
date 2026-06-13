@@ -35,7 +35,7 @@ floodpulse-nairobi/
 ├── config.py           # Configuration handler & validation
 ├── pyproject.toml      # Dependency management (uv)
 ├── uv.lock             # Deterministic lockfile
-└── __init__.py             # Package namespace initialization
+└── __init__.py         # Package namespace initialization
 ```
   
 ### 📊 Evolutionary Roadmap
