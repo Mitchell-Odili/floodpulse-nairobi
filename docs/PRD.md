@@ -14,7 +14,7 @@ FloodPulse utilizes a Modular Agentic Simulation pattern, evolving from static i
 
 - **Level 0 (The Gallery):** A persistent registry for personas (Sarah, Juma, Kamau) and finalized mission assets.
 - **The Sandbox (Lab/Validation):** An isolated, ephemeral environment used for Model Context Protocol (MCP) tool-calling validation, ADC-based authentication testing, and diagnostic reporting.
-- **Level 1 (The Studio):** The core Agentic Synthesis engine. It uses the **Google Agent Development Kit (ADK)** to orchestrate specialized sub-agents (Vision Analyst, Weather Gatherer) through a sequential delegation loop, ensuring atomic state management and session-scoped reliability.
+- **Level 1 (The Studio):** The core Agentic Synthesis engine. It uses the **Google Agent Development Kit (ADK)** to orchestrate specialized sub-agents (Vision Analyst, Weather Gatherer) through a sequential delegation loop, ensuring atomic state management and session-scoped reliability. The core engine utilizes an Agentic Resilience Layer (`utils.py` and `genai_retry` logic) to manage API fluctuations and quota constraints. State is managed through an explicit **Context-Setter Pattern**, requiring the Orchestrator to validate and persist mission parameters before task delegation.
 - **Level 2 Graph Orchestration:** Google Cloud Spanner backbone for persistent node-based navigation.
 
 ### 3.1 Evolutionary Roadmap
@@ -32,26 +32,29 @@ FloodPulse utilizes a Modular Agentic Simulation pattern, evolving from static i
 - Logic: Implemented `create_identity.py` and `generator.py` using an Orchestrator/Worker pattern.
 - Output: Consistent visual assets stored in `level_0/outputs/.`
 
-### 4.2 The Sandbox
+### 4.2 The Sandbox (Completed)
 - **Purpose:** To serve as a hardened proving ground for all Tool/Agent interactions.
 - **FR1 (Protocol Verification):** All new spatial reasoning tools must be validated against the MCP Inspector at port 6274 before being merged into the Studio.
 - **FR2 (Authentication Hardening):** Ensures all production-path tools are compatible with **Application Default Credentials (ADC)**, providing a secure alternative to legacy API key management.
 - **FR3 (Artifact Logging):** Every successful diagnostic session must generate a documentation record in `sandbox/notes.md.` to maintain a historical "truth" of tool performance.
 - **FR4 (Path Shielding):** Implementation of dynamic `PROJECT_ROOT` resolution in all sandbox scripts to prevent file-system corruption or duplicate directory nesting (`levels/levels/...`).
 
-### 4.3 Level 1: The Studio (Ongoing)
+### 4.3 Level 1: The Studio (Completed)
 - **FR5 (Sequential Orchestration):** The `FloodPulseStudio` uses `SequentialAgent` logic to map user intent to a precise, context-aware execution flow.
 - **FR6 (Telemetry-Aware Synthesis):** The orchestrator pulls real-time environmental telemetry (Weather) and terrain data (Vision) to generate a unified mission risk assessment.
 - **FR7 (Artifact Promotion):** Automated pipeline moves validated assets from /level_0/outputs to the public /level_1/assets registry.
 - **FR8 (Memory Injection):** Contextual injection of persona metadata (Level 0) into `callback_context` to ensure agents are "Persona-Aware."
 - **FR9 (Interaction):** Interactive discovery phase where the root agent greets the user and determines mission parameters before synthesizing assets.
 - **FR10 (Idempotency):** The ADK `InMemorySessionService` tracks invocation_ids to ensure atomic tool execution and cost-efficient API usage.
+- **FR11 (Resilience Integration):** All external tool calls are wrapped in `http/gen_ai_retry` (exponential backoff with jitter) to mitigate `429 RESOURCE_EXHAUSTED` and `503 UNAVAILABLE errors`.
+- **FR12 (Context-Setter Gatekeeper):** The Orchestrator forces an `update_mission_context` execution for every session, transforming raw user input into a persistent `session.state` that fuels downstream domain sub-agents.
+- **FR13 (Root-Level Utility Infrastructure):** Migration of shared utility logic to the root `/utils.py` module to ensure consistent package namespace resolution and eliminate `ImportError` regressions.
 
-### 4.3 Graph Orchestration (Completed)
-- **FR11: Persistent State:** The system utilizes **Google Cloud Spanner** (Instance: survivor-network) to store the Trinity (Sarah, Juma, Kamau) as living graph nodes. (✅ Implemented via `spanner_init.py`)
-- **FR12: Relational Intelligence:** Implemented `FloodResilienceGraph` with ConnectedTo edges to map emergency lifelines between residents and responders. (✅ Implemented)
-- **FR13: Data Integrity:** System supports Idempotent Initialization and "Smart Repair" logic to ensure infrastructure stability in unstable connectivity environments. (✅ Implemented)
-- **FR14: GQL-Based Routing:** The system uses **Google Query Language (GQL)** to filter nodes by risk index and return optimized responder paths. (✅ Implemented)
+### 4.3 Graph Orchestration (Ongoing)
+- **FR14: Persistent State:** The system utilizes **Google Cloud Spanner** (Instance: survivor-network) to store the Trinity (Sarah, Juma, Kamau) as living graph nodes. (✅ Implemented via `spanner_init.py`)
+- **FR15: Relational Intelligence:** Implemented `FloodResilienceGraph` with ConnectedTo edges to map emergency lifelines between residents and responders. (✅ Implemented)
+- **FR16: Data Integrity:** System supports Idempotent Initialization and "Smart Repair" logic to ensure infrastructure stability in unstable connectivity environments. (✅ Implemented)
+- **FR17: GQL-Based Routing:** The system uses **Google Query Language (GQL)** to filter nodes by risk index and return optimized responder paths. (✅ Implemented)
 
 ## 5. Non-Functional Requirements (NFR)
 - **Latency:** Inference for terrain risk analysis must be < 2 seconds.
@@ -60,7 +63,9 @@ FloodPulse utilizes a Modular Agentic Simulation pattern, evolving from static i
 - **Diagnostic Transparency:** All tool-calling errors in the sandbox must be captured as logs and, where possible, visual artifacts (screenshots/maps) for PRD compliance.
 - **Credit Awareness:** All LLM calls gated by idempotent checks to minimize API spend.
 - **State Management:** ADK-based session management maintains context
+- **Quota Awareness:** The system must implement "Cache-Before-Call" logic for all geospatial assets, checking local `/assets/` directories for existing files before invoking remote API endpoints to conserve the 20-request/day free-tier quota.
 - **Edge Readiness:** Architecture maintains modularity to support future porting to Android 17 on-device AppFunctions using Gemma 4
+- **Model Portability:** All Agentic Logic must be abstracted from the model backend to allow seamless switching between `Gemini-2.5-Flash` (Cloud) and `Gemma-4` (On-Device) via the `google-genai` interface.
 
 ## 6. Technical Validation: "The Mbagathi Truth"
 - **Baseline:** Validated spatial reasoning for topographical analysis (`Gemma 4 (31B)` , `Gemini-2.5-Flash`, `Gemini-3.5-Flash`).

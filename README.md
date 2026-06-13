@@ -29,12 +29,13 @@ floodpulse-nairobi/
 │   ├── level_1/        # The Studio: ADK Sequential Orchestration
 │   └── level_2/        # Graph Orchestration: Spanner/GQL
 ├── sandbox/            # Experimental MCP rigs & diagnostic lab
-├── tools/              # Shared spatial (map) & weather tools
-├── utils/              # State management & utilities
+├── tools/              # Shared spatial (map), weather & context tools
+├── utils.py            # Global Resilience Layer (Retry logic, shared helpers)
 ├── config.json         # Global application settings
 ├── config.py           # Configuration handler & validation
 ├── pyproject.toml      # Dependency management (uv)
-└── uv.lock             # Deterministic lockfile
+├── uv.lock             # Deterministic lockfile
+└── __init__.py             # Package namespace initialization
 ```
   
 ### 📊 Evolutionary Roadmap
@@ -45,6 +46,39 @@ floodpulse-nairobi/
 | **Level 1** | The Studio: Agentic Synthesis & Telemetry Integration | ✅ Done |
 | **Level 2** | Graph Orchestration: Spanner/GQL Navigation | 🟡 Ongoing |
 | **Edge** | Android 17 Parity: Local Gemma 4 inference | 🔜 Planned |
+---
+## 🛡️ Resilience & State Protocol
+- **Resilience Layer (`utils.p`y):** We use `@http/genai_retry` decorators across all API-bound tools (Maps, Weather, GenAI). They utilizes exponential backoff with jitter to gracefully recover from `429 (Resource Exhausted)` and `503 (Unavailable) errors`.
+- **Context-Setter Pattern:** The Director agent uses the `update_mission_context` tool to persist mission parameters (Name, Lat, Lon) into `tool_context.session.state`. This ensures that downstream agents have reliable access to validated mission data.
+-**Asset Caching:** To preserve daily API quotas, all map and terrain assets are checked against the local `/assets/` directory before triggering remote API calls.
+---
+
+## ⚙️ Setup & Execution
+1. **Install Dependencies:** `uv sync`
+2. **Environment Variables:** Create a `.env` file in the project root:
+```plaintext
+# API Keys (For Sandbox / Prototyping)
+GEMINI_API_KEY=
+MAPS_API_KEY=
+OPENWEATHER_API_KEY=
+
+# ADC / Vertex AI (For Production Studio)
+USE_VERTEX_AI=true
+PROJECT_ID=your-project-id
+LOCATION=us-central1
+```
+3. **Authentication Protocol**
+
+The system supports two execution modes via `config.py`:
+- **Sandbox Mode (`USE_VERTEX_AI=false`):** Uses standard API keys. Ideal for rapid iteration, testing, and debugging.
+- **Studio Production Mode (`USE_VERTEX_AI=true`):** Uses **Application Default Credentials (ADC)**. This leverages your project's IAM identity for secure, enterprise-grade access.
+  - **Note:** Ensure you have authenticated locally via `gcloud auth application-default login` before running in Studio mode.
+    
+4. **Run Missions:** Execute from the root directory using the module flag:
+```
+uv run python -m levels.level_1.agent
+adk web levels/level_1 
+```
 ---
 ## 🎯 Technical Validation: "The Mbagathi Truth"
 

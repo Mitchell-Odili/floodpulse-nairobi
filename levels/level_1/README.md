@@ -37,8 +37,8 @@ floodpulse-nairobi/
 ├── levels/             # Core Engine
 │   └── level_1/        # Sequential Orchestrator & Studio Logic
 ├── sandbox/            # Experimental MCP rigs & diagnostic lab
-├── tools/              # Shared spatial (map) & weather tools
-├── utils/              # State management & utility helpers
+├── tools/              # Shared spatial (map), weather & context tools
+├── utils.py            # Global utility functions (Retry logic, shared helpers)
 ├── config.json         # Centralized application settings
 ├── config.py           # Model and API configurations
 ├── pyproject.toml      # Dependency management & project metadata
@@ -51,6 +51,13 @@ floodpulse-nairobi/
 - **Session-Aware execution:** ADK-driven session management ensures mission state is scoped and tracked for multi-turn reliability.
 - **Agentic Loop:** A centralized director handles the lifecycle of every request, ensuring consistent persona and context maintenance.
   
+---
+
+## 🛡️ Operational Principles
+- **Robust Resilience:** All API interactions (GenAI, Maps, OpenWeather) are wrapped in `retry` decorators using exponential backoff with jitter to handle capacity spikes and quota exhaustion gracefully.
+- **State-First Orchestration:** Missions begin with a `context_setter` call to populate the `tool_context.session.state`. Downstream agents operate as pure consumers of this validated state, ensuring deterministic behavior.
+- **Idempotent Asset Pipeline:** Map and tile generation checks local filesystem caches (`assets/`) before triggering external API calls, optimizing for both latency and daily quota consumption.
+
 ---
 
 ## 📍 Deployment Nodes
