@@ -1,7 +1,18 @@
 import os
+import sys
 import requests
 import random
+from pathlib import Path
+from google.adk.tools import ToolContext
 
+# Add the project root (3 levels up from tools/) to the system path
+root_dir = Path(__file__).resolve().parents[3]
+sys.path.append(str(root_dir))
+
+# Now import utils directly
+from utils import http_retry
+
+@http_retry
 def get_nairobi_pulse_tool(lat: float, lon: float, simulate: bool = False) -> dict:
     """
     Fetches real-time weather data or generates a simulation pulse.
@@ -13,6 +24,9 @@ def get_nairobi_pulse_tool(lat: float, lon: float, simulate: bool = False) -> di
         
     Returns:
         dict: Weather metrics and status strings.
+
+    Raises:
+        ConnectionError: If API key is missing or service is unreachable.
     """
     
     if simulate:
@@ -20,7 +34,7 @@ def get_nairobi_pulse_tool(lat: float, lon: float, simulate: bool = False) -> di
     else:
         api_key = os.getenv("OPENWEATHER_API_KEY")
         if not api_key:
-            return {"error": "API Key Missing"}
+            raise ConnectionError("Weather API Key Missing. Cannot fetch data.")
         
         url = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={api_key}&units=metric"
         try:
@@ -45,5 +59,23 @@ def get_nairobi_pulse_tool(lat: float, lon: float, simulate: bool = False) -> di
     return {
         "rain_mm_h": round(current_rain, 2),
         "flash_index": round(flash_index, 2),
-        "status": status
+        "status": status,
+        "telemetry_type": "weather"
     }
+
+def get_active_weather_pulse(tool_context: ToolContext):
+    """
+    Adapter: Uses injected ToolContext to safely retrieve mission 
+    coordinates from the active session and calls the core weather tool.
+    """
+    # 1. Access the session object directly from the injected context
+    metadata = tool_context.session.state
+    
+    lat = metadata.get("latitude")
+    lon = metadata.get("longitude")
+    
+    if lat is None or lon is None:
+        raise ValueError("Session metadata missing latitude/longitude for weather lookup.")
+        
+    # Call your original tool logic
+    return get_nairobi_pulse_tool(lat, lon, simulate=False)
