@@ -19,7 +19,7 @@ def analyze_terrain_tool(tool_context: ToolContext) -> dict:
         dict: Structured terrain telemetry for schema mapping.
     """
     # 1. Identity Resolution: Use the injected tool_context
-    metadata = tool_context.session.metadata
+    metadata = tool_context.session.state
     responder_name = session.metadata.get("responder_name")
 
     if not responder_name:
