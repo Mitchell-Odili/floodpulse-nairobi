@@ -19,15 +19,14 @@ MCP is the bridge that transforms static environmental data into Actionable Inte
 ```
 
 ## 3. Authentication & Access Strategy
-We maintain two distinct paths for MCP experimentation to balance security with development flexibility. 
-	
+We have unified our MCP servers into a single `vision_mcp.py` file, utilizing a `.env` toggle (`USE_VERTEX_AI=true/false`) to switch between rapid-iteration and production-grade authentication.
 
-| Feature | Legacy API Key | Application Default Credentials (ADC) - Cloud |
+| Feature | API Key Mode | ADC Mode - Vertex AI |
 |-------------|--------|--------------|
-| **Primary Use** | Prototyping & Paid-tier access| Enterprise-grade production |
-| **Model Access** | Full access (including 3.5-Flash) | Restricted to project-level quota |
-| **Security** | Sensitive .env management | Secure, time-bound tokens |
-| **Environment** | Best for local quick-testing | Best for robust cloud integration |
+| **Primary Use** | Rapid Prototyping | Production/Studio Deployment |
+| **Authentication** | Direct `GOOGLE_API_KEY` | Managed via `gcloud` identity |
+| **Quota** | Account-level limits | Project-level (IAM) quotas |
+| **Best For** | Bypassing IAM bottlenecks | Secure enterprise integration |
 
 ### Performance Insights: The "Hanging" Latency
 - **Secure Tunneling:** Requests are routed through GCP infrastructure for permission validation.
@@ -38,7 +37,7 @@ We maintain two distinct paths for MCP experimentation to balance security with 
 - Model Availability:
 - **Gemini 3.5-Flash:** Currently restricted in our Google Cloud ADC environment.
 - **Gemini 2.5-Flash:** Used as the stable baseline for all MCP spatial reasoning tasks within the current production pipeline.
-- **Config Logic:** `config.json` is anchored to the `PROJECT_ROOT` to ensure consistent pathing regardless of the execution directory.
+- **Configuration:** The project now utilizes a hierarchical path resolution that allows the `vision_mcp` script to operate as a post-execution auditor; in this architecture, Level 1 establishes the Mission Baseline, while the Vision MCP performs independent Post-Mission Verification to ensure rigorous quality control.
 
 ## 🛠️ Inspector Deployment Note
 - **Observed Limitation:** The MCP Inspector struggles to maintain stable connections when launched within a remote cloud development environment (like Cloud Shell) due to network tunneling restrictions.

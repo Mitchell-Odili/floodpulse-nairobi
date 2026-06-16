@@ -11,8 +11,8 @@
 
 We have transitioned from a multi-level sequential model to a unified Agentic Studio architecture.
 - **The Gallery (Level 0):** A persistent registry for personas (Sarah, Juma, Kamau) and finalized mission assets.
-- **The Sandbox:** Our experimental laboratory. This is where we stress-test new MCP tool-calling logic and authenticate secure connections via Application Default Credentials (ADC) before they graduate to the Studio.
 - **The Studio (Level 1 ):** The core Agentic Synthesis engine. It utilizes the **Google Agent Development Kit (ADK)** to orchestrate specialized sub-agents (Weather Gatherer, Vision Analyst) through a sequential delegation loop, ensuring atomic state management and session-scoped reliability.
+- **The Sandbox:** Our experimental laboratory and post-mission verification suite. This is where we stress-test new MCP tool-calling logic and authenticate secure connections via **Application Default Credentials (ADC)** or **API keys**. Once the Level 1 Studio establishes a mission baseline, the Sandbox tools perform independent Post-Mission Verification to ensure rigorous auditability and quality control before data is finalized.
 - **Graph Orchestration (Level 2)**: Google Cloud Spanner backbone for persistent node-based navigation.
 
 ### Visualizing the Workflow:
@@ -45,13 +45,13 @@ floodpulse-nairobi/
 | Phase | Milestone | Status |
 |-------------|--------|--------------|
 | **Level 0** | Identity Factory: Parametric persona generation| ✅ Done |
-| **Sandbox** | MCP Lab: Secure Vision/Tool Diagnostics | ✅ Done | 
 | **Level 1** | The Studio: Agentic Synthesis & Telemetry Integration | ✅ Done |
+| **Sandbox** | MCP Lab: Secure Vision/Tool Diagnostics | ✅ Done | 
 | **Level 2** | Graph Orchestration: Spanner/GQL Navigation | 🟡 Ongoing |
 | **Edge** | Android 17 Parity: Local Gemma 4 inference | 🔜 Planned |
 ---
 ## 🛡️ Resilience & State Protocol
-- **Resilience Layer (`utils.p`y):** We use `@http/genai_retry` decorators across all API-bound tools (Maps, Weather, GenAI). They utilizes exponential backoff with jitter to gracefully recover from `429 (Resource Exhausted)` and `503 (Unavailable) errors`.
+- **Resilience Layer (`utils.py`):** We use `@http/genai_retry` decorators across all API-bound tools (Maps, Weather, GenAI). They utilizes exponential backoff with jitter to gracefully recover from `429 (Resource Exhausted)` and `503 (Unavailable) errors`.
 - **Context-Setter Pattern:** The Director agent uses the `update_mission_context` tool to persist mission parameters (Name, Lat, Lon) into `tool_context.session.state`. This ensures that downstream agents have reliable access to validated mission data.
 -**Asset Caching:** To preserve daily API quotas, all map and terrain assets are checked against the local `/assets/` directory before triggering remote API calls.
 ---
@@ -70,17 +70,20 @@ USE_VERTEX_AI=true
 PROJECT_ID=your-project-id
 LOCATION=us-central1
 ```
-3. **Authentication Protocol**
+3. **Authentication & Execution Modes**
 
-The system supports two execution modes via `config.py`:
+The system supports two execution modes via your `.env` configuration:
+
 - **Sandbox Mode (`USE_VERTEX_AI=false`):** Uses standard API keys. Ideal for rapid iteration, testing, and debugging.
 - **Studio Production Mode (`USE_VERTEX_AI=true`):** Uses **Application Default Credentials (ADC)**. This leverages your project's IAM identity for secure, enterprise-grade access.
-  - **Note:** Ensure you have authenticated locally via `gcloud auth application-default login` before running in Studio mode.
+  - *Requirement:* Ensure you have authenticated locally via `gcloud auth application-default login` before running in Studio mode.
     
 4. **Run Missions:** Execute from the root directory using the module flag:
 ```
 uv run python -m levels.level_1.agent
-adk web levels/level_1 
+adk web levels/level_1
+adk web --allow_origins "regex:https://.*\.cloudshell\.dev"
+PYTHONPATH=. adk web levels/level_1 --allow_origins "regex:https://.*\.cloudshell\.dev"
 ```
 ---
 ## 🎯 Technical Validation: "The Mbagathi Truth"

@@ -7,26 +7,27 @@ This directory serves as the **experimental workspace** for the FloodPulse proje
 - **Lab Logging:** Documenting lessons learned, architecture discoveries, and troubleshooting notes.
 
 ## 📂 Contents
-- `adc_vision_mcp.py:` Production-aligned MCP server using Google Cloud Application Default Credentials (ADC).
-- `vision_mcp.py:` Experimental MCP server using standard API keys, ideal for rapid prototyping and bypassing project-specific model quotas.
+- `vision_mcp.py:` A unified MCP server that detects authentication mode via `.env` (`USE_VERTEX_AI=true/false`). Supports both rapid prototyping (API Key) and production-aligned (ADC) testing.
 - `notes.md:` A comprehensive lab log detailing experiment results, authentication struggles, port configurations (6274), and model availability findings.
 
 ## 🚀 Getting Started
 To interact with these tools, use the MCP Inspector:
+1. **Ensure your environment is set:**
+   Set `USE_VERTEX_AI=true` in your `.env` to use ADC, or `false` to use your API key.
 
-1. Install the Inspector:
+2. Install the Inspector:
 ```
 Bash
 npm install -g @modelcontextprotocol/inspector
 ```
-2. Launch a test rig:
+3. **Launch the test rig:**
+ ```bash
+ # Use PYTHONPATH to ensure the project modules are resolvable
+ PYTHONPATH=. npx @modelcontextprotocol/inspector uv run sandbox/vision_mcp.py
 ```
-Bash
-# Replace the file name with the rig you want to test
-npx @modelcontextprotocol/inspector uv run sandbox/adc_vision_mcp.py
-```
-3. Verify: Open the local dashboard at `http://localhost:6274` to execute tools and review responses.
+4. Verify: Open the local dashboard at `http://localhost:6274` to execute tools and review responses.
 
 ## 🛠️ Operational Notes
-- **Path Resolution:** These scripts use dynamic pathing to locate the `PROJECT_ROOT.` Ensure your `config.json` is present in the root of the project for ADC scripts to function correctly.
+- **Authentication Logic:** The server automatically switches between Vertex AI (ADC) and API Key based on your `.env` configuration. Ensure `gcloud auth application-default login` is run locally if using ADC mode.
+- **Path Resolution:** These scripts use dynamic pathing to locate the `PROJECT_ROOT.` Ensure you are executing from the project root to maintain correct module resolution.
 - **Environment:** All successful tests recorded in `notes.md` were performed in a local VS Code environment. Remote cloud development environments (like Cloud Shell) may face tunneling restrictions with the Inspector.
