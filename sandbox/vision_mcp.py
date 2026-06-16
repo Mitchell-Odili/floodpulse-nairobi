@@ -17,6 +17,8 @@ PROJECT_ROOT = SCRIPT_DIR.parent
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
+from config import MODELS
+
 # --- LOGGING SETUP ---
 logging.basicConfig(level=logging.INFO, stream=sys.stderr)
 logger = logging.getLogger("FloodPulse-Vision")
@@ -72,7 +74,7 @@ def analyze_mbagathi_risk(agent_name: str, lat: float, lon: float) -> str:
         )
 
         response = client.models.generate_content(
-            model="gemini-2.5-flash",
+            model=MODELS["vision_model"],
             contents=[prompt_text, img]
         )
         
