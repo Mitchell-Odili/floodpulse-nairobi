@@ -27,7 +27,10 @@ npm install -g @modelcontextprotocol/inspector
 ```
 4. Verify: Open the local dashboard at `http://localhost:6274` to execute tools and review responses.
 
+### Visualizing the inspector results:
+![analyze_mbagathi_risk output](../docs/mcp_inspector_test.png)
+
 ## 🛠️ Operational Notes
 - **Authentication Logic:** The server automatically switches between Vertex AI (ADC) and API Key based on your `.env` configuration. Ensure `gcloud auth application-default login` is run locally if using ADC mode.
 - **Path Resolution:** These scripts use dynamic pathing to locate the `PROJECT_ROOT.` Ensure you are executing from the project root to maintain correct module resolution.
-- **Environment:** All successful tests recorded in `notes.md` were performed in a local VS Code environment. Remote cloud development environments (like Cloud Shell) may face tunneling restrictions with the Inspector.
+- **Environment:** All successful tests recorded in [`notes.md`](notes.md) were performed in a local VS Code environment. Remote cloud development environments (like Cloud Shell) may face tunneling restrictions with the Inspector.
