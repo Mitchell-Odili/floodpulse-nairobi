@@ -68,7 +68,7 @@ def generate_active_mission_map(tool_context: ToolContext, zoom: int = 17):
     Uses ToolContext to pull data from the session and calls the Core function.
     """
     # Pulling from session metadata via injected tool_context
-    metadata = tool_context.session.metadata
+    metadata = tool_context.session.state
     
     responder = metadata.get("responder_name")
     lat = metadata.get("latitude")
