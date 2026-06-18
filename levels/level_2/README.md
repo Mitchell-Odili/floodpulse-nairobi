@@ -3,7 +3,7 @@
 ## 📌 Overview
 Level 2 transitions the **FloodPulse** project from local data structures to a production-grade, cloud-native **Google Cloud Spanner Property Graph**. This layer serves as the "Digital Guardian," providing the relational intelligence required to navigate emergency response paths in the Mbagathi Basin.
 
-![GraphQL visualization](../docs/level_2_spanner_visualization.png)
+![GraphQL visualization](../../docs/level_2_spanner_visualization.png)
 
 ## 🏗️ Architectural Components
 
