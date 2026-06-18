@@ -18,7 +18,7 @@ The `Nodes` table includes an `embedding` column defined as ARRAY<FLOAT32>.
 ### 3. Idempotent Initialization (`spanner_init.py`)
 The infrastructure layer features a "Smart Repair" logic:
 * **Database Check**: Verifies the existence of the Spanner database container.
-* **Schema Audit**: Performs a health check on the schema. If tables are missing, it dynamically reads and applies the structure from the `schema.sql` file.
+* **Schema Audit**: Performs a health check on the schema. If tables are missing, it dynamically reads and applies the structure from the [`schema.sql`](schema.sql) file.
 
 ### 4. Trinity Agent Seeding (`seed_data.py`)
 This script populates the network with our core personas using ACID-compliant transactions. 
@@ -66,7 +66,7 @@ SELECT * FROM GRAPH_TABLE(FloodResilienceGraph
 
 ### 🛠️ Technical Decisions & Pivots
 - **Spatial Data Type:** Pivoted to `STRING(MAX)` for WKT (Well-Known Text) compatibility, ensuring the infrastructure remains lightweight and portable.
-- **Modularity:** Moved all schema definitions into a self-contained `schema.sql` within the component directory, ensuring the code remains strictly decoupled from the underlying database definition. This design allows for modular updates to the schema without requiring modifications to the core initialization logic.
+- **Modularity:** Moved all schema definitions into a self-contained [`schema.sql`](schema.sql) within the component directory, ensuring the code remains strictly decoupled from the underlying database definition. This design allows for modular updates to the schema without requiring modifications to the core initialization logic.
 - **Evolutionary Schema:** The `spanner_init.py` script includes an "Evolutionary" check, specifically scanning for the `embedding` column and applying `ALTER TABLE` statements automatically if the schema is updated in the future.
 ---
 Status: Level 2 Fully Operational | Region: Nairobi, Kenya (NBO)
