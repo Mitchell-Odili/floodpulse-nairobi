@@ -9,6 +9,7 @@ CREATE TABLE Nodes (
     current_flash_index FLOAT64,
     -- Future-proofing: Vector storage for AI semantic search
     embedding ARRAY<FLOAT32> 
+    status STRING(MAX) 
 ) PRIMARY KEY (node_id);
 
 -- 2. EDGES TABLE
