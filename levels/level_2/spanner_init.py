@@ -1,89 +1,75 @@
 import os
+from pathlib import Path
 from google.cloud import spanner
 from dotenv import load_dotenv
 
-load_dotenv()
+# Path configuration
+script_dir = Path(__file__).resolve().parent
+root_dir = script_dir.parent.parent
+dotenv_path = root_dir / '.env'
 
-def load_schema_from_file():
-    """Reads schema from the local schema.sql now located in Level 3."""
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    schema_path = os.path.join(current_dir, "schema.sql")
+# Load credentials from .env
+load_dotenv(dotenv_path=dotenv_path)
+
+def load_schema_from_file(directory):
+    schema_path = directory / "schema.sql"
     
-    if not os.path.exists(schema_path):
-        print(f"⚠️ schema.sql not found at {schema_path}. Falling back to hardcoded schema.")
-        return None
-
     with open(schema_path, "r", encoding="utf-8") as f:
         full_sql = f.read()
+    
+    # 1. Print the content to confirm what it actually sees
+    print(f"DEBUG: Content head: {full_sql[:100]}...") 
 
-    # Split by semicolon and filter out comments/empty lines
+    # 2. Use a more robust split, and don't filter out things so aggressively
+    # We remove lines that are just comments, but keep the core SQL
     statements = [
         s.strip() for s in full_sql.split(";") 
-        if s.strip() and not s.strip().startswith("--")
+        if len(s.strip()) > 10 # Only keep statements longer than 10 characters
     ]
+    
+    print(f"DEBUG: Found {len(statements)} statements after cleaning.")
     return statements
 
-# 1. HARDCODED DDL (The Fail-Safe Backup)
-MBAGATHI_SCHEMA_BACKUP = [
-    """
-    CREATE TABLE Nodes (
-        node_id STRING(36) NOT NULL,
-        name STRING(MAX),
-        type STRING(20),
-        elevation FLOAT64,
-        location STRING(MAX),
-        current_flash_index FLOAT64
-    ) PRIMARY KEY (node_id)
-    """,
-    """
-    CREATE TABLE Edges (
-        edge_id STRING(36) NOT NULL,
-        start_node_id STRING(36) NOT NULL,
-        end_node_id STRING(36) NOT NULL,
-        road_type STRING(20), 
-        is_flood_prone BOOL,
-        base_weight FLOAT64
-    ) PRIMARY KEY (edge_id)
-    """,
-    """
-    CREATE PROPERTY GRAPH FloodResilienceGraph
-        NODE TABLES (Nodes)
-        EDGE TABLES (
-            Edges 
-            SOURCE KEY (start_node_id) REFERENCES Nodes (node_id)
-            DESTINATION KEY (end_node_id) REFERENCES Nodes (node_id)
-            LABEL ConnectedTo
-        )
-    """
-]
+def initialize_spanner_graph(script_dir):
 
-def initialize_spanner_graph():
+    # Retrieve and validate variables
+    project_id = os.getenv("PROJECT_ID")
+    instance_id = os.getenv("SPANNER_INSTANCE_ID")
+    db_id = os.getenv("SPANNER_DATABASE_ID")
+
+    if not all([project_id, instance_id, db_id]):
+        raise ValueError(f"Missing environment variables! Got: P={project_id}, I={instance_id}, DB={db_id}")
+
     client = spanner.Client(project=os.getenv("PROJECT_ID"))
     instance = client.instance(os.getenv("SPANNER_INSTANCE_ID"))
-    database = instance.database(os.getenv("SPANNER_DATABASE_ID"))
-
-    # 2. Try to load from file first, otherwise use backup
-    ddl_statements = load_schema_from_file() or MBAGATHI_SCHEMA_BACKUP
-
-    # Check if DB exists, if not, create it
-    if not database.exists():
-        print(f"🏗️ Creating database {os.getenv('SPANNER_DATABASE_ID')}...")
-        operation = database.create(ddl_statements=ddl_statements)
-        operation.result(120)
-        print("✅ Database and Graph created.")
+    
+    # Fetch the schema first
+    ddl_statements = load_schema_from_file(script_dir)
+    if not ddl_statements:
+        print("❌ Initialization aborted: No schema defined.")
         return
 
-    # If DB exists, check for the Nodes table
-    try:
+    # Define the database object WITH the ddl_statements
+    database = instance.database(os.getenv("SPANNER_DATABASE_ID"), ddl_statements=ddl_statements)
+
+    if not database.exists():
+        print(f"🏗️ Creating database {os.getenv('SPANNER_DATABASE_ID')}...")
+        # 3. Now call create() with NO arguments
+        operation = database.create()
+        operation.result(120)
+        print("✅ Database, Tables, and Graph created from schema.sql.")
+    else:
+        # 2. Check for missing embedding column (Evolution)
+        print("🔍 Checking schema status...")
         with database.snapshot() as snapshot:
-            # A simple ping to see if the schema is actually deployed
-            snapshot.execute_sql("SELECT 1 FROM Nodes LIMIT 1").one()
-        print("⚠️ Tables already exist. Skipping initialization.")
-    except Exception:
-        print(f"📊 Table 'Nodes' missing. Initializing with {len(ddl_statements)} statements...")
-        operation = database.update_ddl(ddl_statements)
-        operation.result(120) 
-        print("✅ Level 3: Spanner Graph Repair Online.")
+            query = "SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Nodes' AND COLUMN_NAME = 'embedding'"
+            if not list(snapshot.execute_sql(query)):
+                print("🔄 Updating Schema: Adding missing embedding column...")
+                op = database.update_ddl(["ALTER TABLE Nodes ADD COLUMN embedding ARRAY<FLOAT32>"])
+                op.result(60)
+                print("✅ Schema evolved successfully.")
+            else:
+                print("✨ Schema is up to date.")
 
 if __name__ == "__main__":
-    initialize_spanner_graph()
+    initialize_spanner_graph(script_dir)
