@@ -10,6 +10,7 @@ CREATE TABLE Nodes (
     -- Future-proofing: Vector storage for AI semantic search
     embedding ARRAY<FLOAT32> 
     status STRING(MAX) 
+    status_resp STRING(MAX)
 ) PRIMARY KEY (node_id);
 
 -- 2. EDGES TABLE
