@@ -16,9 +16,9 @@ def seed_mbagathi_agents():
         # 1. Define Nodes (including placeholder embedding for now)
         # Embedding is ARRAY<FLOAT32>
         node_data = [
-            ("node_001", "Sarah", "Resident", 1780.5, "POINT(36.8147 -1.3211)", 0.85, [0.0]*3),
-            ("node_002", "Juma", "Responder", 1795.0, "POINT(36.8120 -1.3190)", 0.10, [0.0]*3),
-            ("node_003", "Kamau", "Authority", 1810.2, "POINT(36.8100 -1.3150)", 0.05, [0.0]*3),
+            ("node_001", "Sarah", "Resident", 1780.5, "POINT(36.8147 -1.3211)", 0.85, [0.0]*3, "Critical Pulse", "N/A"),
+            ("node_002", "Juma", "Responder", 1795.0, "POINT(36.8120 -1.3190)", 0.10, [0.0]*3, "Moderate Pulse", "Available"),
+            ("node_003", "Kamau", "Authority", 1810.2, "POINT(36.8100 -1.3150)", 0.05, [0.0]*3, "Low Pulse", "N/A"),
         ]
 
         edge_data = [
