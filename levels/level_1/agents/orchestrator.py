@@ -5,6 +5,7 @@ from levels.level_1.agents.sub_agents.weather_agent import weather_gatherer
 from levels.level_1.agents.sub_agents.vision_agent import vision_analyst
 from levels.level_1.agents.sub_agents.responder_agent import responder_agent
 from levels.level_1.tools.context_tools import update_mission_context
+from levels.level_1.tools.weather_tools import get_active_weather_pulse
 
 
 # 2. Define the Pipeline of workers
@@ -32,7 +33,7 @@ floodpulse_director = Agent(
     
     TONE: Professional, authoritative, and direct.
     """,
-    tools=[update_mission_context],
+    tools=[update_mission_context, get_active_weather_pulse],
     sub_agents=[pipeline], # The pipeline is now a specialized sub-agent
     output_key="mission_data"    
 )
