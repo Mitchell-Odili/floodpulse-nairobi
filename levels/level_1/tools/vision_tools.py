@@ -14,10 +14,13 @@ def analyze_terrain_tool(tool_context: ToolContext) -> dict:
     """
     # 1. Identity Resolution
     metadata = tool_context.session.state
-    responder_name = metadata.get("responder_name")
+    raw_responder_name = metadata.get("responder_name")
 
-    if not responder_name:
+    if not raw_responder_name:
         raise ValueError("Session metadata missing 'responder_name'.")
+
+    # Force lowercase for consistent file lookups
+    responder_name = raw_responder_name.lower()
 
     # 2. Robust File Resolution
     # Resolve the path to the assets folder using absolute path navigation
