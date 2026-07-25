@@ -11,4 +11,7 @@ dependencies = [
     "google-genai>=2.8.0",
     "mcp[cli]>=1.27.2",
     "pillow>=12.2.0",
+    "pyproj>=3.7.2",
+    "rasterio>=1.4.4",
+    "shapely>=2.1.2",
 ]

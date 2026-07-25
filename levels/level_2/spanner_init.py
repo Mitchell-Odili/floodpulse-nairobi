@@ -51,25 +51,23 @@ def initialize_spanner_graph(script_dir):
 
     # Define the database object WITH the ddl_statements
     database = instance.database(os.getenv("SPANNER_DATABASE_ID"), ddl_statements=ddl_statements)
-
+    
+    # 1. Handle Database Existence
     if not database.exists():
         print(f"🏗️ Creating database {os.getenv('SPANNER_DATABASE_ID')}...")
         # 3. Now call create() with NO arguments
         operation = database.create()
         operation.result(120)
-        print("✅ Database, Tables, and Graph created from schema.sql.")
     else:
-        # 2. Check for missing embedding column (Evolution)
-        print("🔍 Checking schema status...")
-        with database.snapshot() as snapshot:
-            query = "SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Nodes' AND COLUMN_NAME = 'embedding'"
-            if not list(snapshot.execute_sql(query)):
-                print("🔄 Updating Schema: Adding missing embedding column...")
-                op = database.update_ddl(["ALTER TABLE Nodes ADD COLUMN embedding ARRAY<FLOAT32>"])
-                op.result(60)
-                print("✅ Schema evolved successfully.")
-            else:
-                print("✨ Schema is up to date.")
+        print("✨ Database exists. Skipping creation.")
+
+    # 2. ALWAYS apply the schema
+    ddl_statements = load_schema_from_file(script_dir)
+    print("📝 Applying Schema and Graph definitions...")
+    op = database.update_ddl(ddl_statements)
+    op.result(120)
+    print("✅ Database, Tables, and Graph initialized.")
+
 
 if __name__ == "__main__":
     initialize_spanner_graph(script_dir)
