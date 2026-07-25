@@ -1,4 +1,3 @@
-levels/level_3/README.md
 # Level 3: Autonomous Emergency Operations (Agentic Orchestration & Dispatch)
 
 ## 📌 Overview
