@@ -12,25 +12,24 @@
 We have transitioned from a multi-level sequential model to a unified Agentic Studio architecture.
 - **The Gallery (Level 0):** A persistent registry for personas (Sarah, Juma, Kamau) and finalized mission assets.
 - **The Studio (Level 1 ):** The core Agentic Synthesis engine. It utilizes the **Google Agent Development Kit (ADK)** to orchestrate specialized sub-agents (Weather Gatherer, Vision Analyst) through a sequential delegation loop, ensuring atomic state management and session-scoped reliability.
+![FloodPulse Studio Workflow](docs/level_1_workflow_viz.png)
 - **The Sandbox:** Our experimental laboratory and post-mission verification suite. This is where we stress-test new MCP tool-calling logic and authenticate secure connections via **Application Default Credentials (ADC)** or **API keys**. Once the Level 1 Studio establishes a mission baseline, the Sandbox tools perform independent Post-Mission Verification to ensure rigorous auditability and quality control before data is finalized.
 - **Graph Orchestration (Level 2)**: Google Cloud Spanner backbone for persistent node-based navigation.
+- **Autonomous Emergency Operations (Level 3):** Fully autonomous agentic orchestration and multi-agent dispatch powered by Spanner transactional integrity, strict role separation, and graph-based rescue routing.
 
-### Visualizing the Workflow:
-See how the Director manages the Sequential Agentic Loop in our Level 1 Architecture Visualization.
-![FloodPulse Studio Workflow](docs/level_1_workflow_viz.png)
-
-  
+![Level 3 Architecture](docs/level_3_architecture.png)
 
 ---
 ## 📂 Project Structure
 
 ``` Plaintext
 floodpulse-nairobi/
-├── docs/               # Architecture visuals, PRDs, & lab reports
+├── docs/               # Architecture visuals & PRDs
 ├── levels/
 │   ├── level_0/        # The Gallery: Identity & Asset Seeds
 │   ├── level_1/        # The Studio: ADK Sequential Orchestration
 │   └── level_2/        # Graph Orchestration: Spanner/GQL
+│   └── level_3/        # Autonomous Emergency Operations & Dispatch
 ├── sandbox/            # Experimental MCP rigs & diagnostic lab
 ├── tools/              # Shared spatial (map), weather & context tools
 ├── utils.py            # Global Resilience Layer (Retry logic, shared helpers)
@@ -47,13 +46,19 @@ floodpulse-nairobi/
 | **Level 0** | Identity Factory: Parametric persona generation| ✅ Done |
 | **Level 1** | The Studio: Agentic Synthesis & Telemetry Integration | ✅ Done |
 | **Sandbox** | MCP Lab: Secure Vision/Tool Diagnostics | ✅ Done | 
-| **Level 2** | Graph Orchestration: Spanner/GQL Navigation | 🟡 Ongoing |
+| **Level 2** | Graph Orchestration: Spanner/GQL Navigation | ✅ Done |
+| **Level 3** | Autonomous Emergency Operations & Dispatch | 🟡 Ongoing |
 | **Edge** | Android 17 Parity: Local Gemma 4 inference | 🔜 Planned |
 ---
 ## 🛡️ Resilience & State Protocol
 - **Resilience Layer (`utils.py`):** We use `@http/genai_retry` decorators across all API-bound tools (Maps, Weather, GenAI). They utilizes exponential backoff with jitter to gracefully recover from `429 (Resource Exhausted)` and `503 (Unavailable) errors`.
 - **Context-Setter Pattern:** The Director agent uses the `update_mission_context` tool to persist mission parameters (Name, Lat, Lon) into `tool_context.session.state`. This ensures that downstream agents have reliable access to validated mission data.
--**Asset Caching:** To preserve daily API quotas, all map and terrain assets are checked against the local `/assets/` directory before triggering remote API calls.
+- **Asset Caching:** To preserve daily API quotas, all map and terrain assets are checked against the local `/assets/` directory before triggering remote API calls.
+- **Spanner Transactional Integrity:** Level 3 dispatches use Google Cloud Spanner `run_in_transaction()` guarantees to prevent double assignments and guarantee atomic updates.
+
+---
+## ⚡ Model Optimization & Throughput
+- **High-Throughput Agent Loops:** Utilizing **Gemini 3.5 Flash Lite** for iterative multi-agent testing. As shown in our telemetry, its higher Requests Per Day (RPD) ceiling prevents premature rate-limiting (`429 Quota Exceeded`) during deep agentic orchestration trials.
 ---
 
 ## ⚙️ Setup & Execution
@@ -80,15 +85,13 @@ The system supports two execution modes via your `.env` configuration:
     
 4. **Run Missions:** Execute from the root directory using the module flag:
 ```
-uv run python -m levels.level_1.agent
-adk web levels/level_1
-adk web --allow_origins "regex:https://.*\.cloudshell\.dev"
 PYTHONPATH=. adk web levels/level_1 --allow_origins "regex:https://.*\.cloudshell\.dev"
+PYTHONPATH=. adk web levels/level_3 --allow_origins "regex:https://.*\.cloudshell\.dev"
 ```
 ---
 ## 🎯 Technical Validation: "The Mbagathi Truth"
 
-- **Baseline:** Validated spatial reasoning for topographical analysis (`Gemma 4 (31B)` , `Gemini-2.5-Flash`, `Gemini-3.5-Flash`).
+- **Baseline:** Validated spatial reasoning for topographical analysis (`Gemma 4 (31B)` , `Gemini-2.5-Flash`, `Gemini-3.5-Flash`, `Gemini-3.5-Flash-Lite`).
 - **MCP Diagnostics:** Validated tool-calling reliability via the MCP Inspector, ensuring our agents can "see" map assets locally even when cloud-disconnected.
 - **Safe Ridge Logic:** The model autonomously identifies high-ground zones based on spectral terrain analysis (elevation vs. drainage).
 - **Graph Verification:** Confirmed directed pathing from Sarah (Resident) at high-risk sump coordinates to Juma (Responder).
@@ -113,6 +116,6 @@ We leverage a hybrid stack that moves from rapid AI prototyping to high-scale cl
 |-------------|---------|-------------------|
 | **AI Studio** | **Prototyping** | Gemma 4 31B (Multimodal Reasoning) |
 | **Sandbox** | **MCP Validation** | FastMCP, Inspector, ADC Authentication |
-| **Vertex AI** | **Orchestration** | **Google ADK (SequentialAgent)**, Gemini 2.5/3.5 Flash, Gemini 3.1 Flash Image (Visual Asset Generation) |
+| **Gemini Agent Enterprise Platform** | **Orchestration** | **Google ADK (SequentialAgent)**, Gemini 2.5/3.5 Flash, **Gemini 3.5 Flash Lite (High-Throughput Operational Tier)**, Gemini 3.1 Flash Image (Nano Banana 2 - Visual Asset Generation) |
 | **Google Cloud** | **Production Scale** | Cloud Spanner Graph(Live/Seeded), FastAPI, Cloud Run, WKT (Well-Known Text) Spatial Modeling |
 ---
